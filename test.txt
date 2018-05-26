@@ -1,0 +1,1 @@
+{"Shape":[{"shape":"rectangle","x":"10","y":"99","width":"369","height":"165","red":"0","green":"0","blue":"0","empty":"true"},{"shape":"rectangle","x":"159","y":"283","width":"174","height":"145","red":"0","green":"0","blue":"0","empty":"true"},{"shape":"rectangle","x":"102","y":"455","width":"206","height":"118","red":"0","green":"0","blue":"0","empty":"true"}]}
