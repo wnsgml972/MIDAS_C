@@ -3,18 +3,18 @@ package model;
 import java.awt.Color;
 
 public class Door {
-	int x;
-	int y;
-	int width;
-	int height;
+	private int x;
+	private int y;
+	private int width;
+	private int height;
 
-	int moveWidth;
-	int moveHeight;
-	
-   private int dir;
+	private int moveWidth;
+	private int moveHeight;
 
-	int x1, y1;
-	int x2, y2;
+	private int dir;
+
+	private int x1, y1;
+	private int x2, y2;
 
 	private Color color;
 
@@ -24,6 +24,7 @@ public class Door {
 		this.width = width;
 		this.height = height;
 		color = Color.BLACK;
+		dir = 0;
 	}
 
 	public void setRange(int x1, int y1, int x2, int y2) {
@@ -33,6 +34,14 @@ public class Door {
 		this.y2 = y2;
 
 		// change x and y
+	}
+
+	public void setDir(int dir) {
+		this.dir = dir;
+	}
+
+	public int getDir() {
+		return dir;
 	}
 
 	public void setMove(int moveWidth, int moveHeight) {
@@ -45,10 +54,14 @@ public class Door {
 		this.y = y - moveHeight;
 	}
 
-	public Boolean checkRange() {
-		if (x2 < x || x < x1)
+	public Boolean xRangeCheck(int xTemp) {
+		if (x2 < xTemp || xTemp < x1)
 			return false;
-		if (y2 < y || y < y2)
+		return true;
+	}
+
+	public Boolean yRangeCheck(int yTemp) {
+		if (y2 < yTemp || yTemp < y1)
 			return false;
 		return true;
 	}
@@ -139,14 +152,6 @@ public class Door {
 
 	public void setY2(int y2) {
 		this.y2 = y2;
-	}
-
-	public int getDir() {
-		return dir;
-	}
-
-	public void setDir(int dir) {
-		this.dir = dir;
 	}
 	
 }

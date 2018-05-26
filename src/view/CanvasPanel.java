@@ -6,13 +6,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import controller.MenuPanelController;
 import controller.MyMouseListener;
+import model.Door;
 import model.Shape;
+import model.Window;
 import values.GlobalNum;
 
 public class CanvasPanel extends JPanel {
@@ -60,9 +63,9 @@ public class CanvasPanel extends JPanel {
 
 				switch (shape.getShape()) {
 				case GlobalNum.WALL:
-	                g2 = (Graphics2D) g;
-	                AffineTransform current = g2.getTransform();
-	                	                
+					g2 = (Graphics2D) g;
+					AffineTransform current = g2.getTransform();
+
 					if (shape.isEmpty()) {
 						if (shape.isCloseSpace()) {
 							g2.setStroke(thickStroke);
@@ -97,7 +100,32 @@ public class CanvasPanel extends JPanel {
 					}
 					break;
 				}
-			} else { // type == label
+				try {
+					ArrayList<Door> doorList = shape.getDoors();
+					for (int j = 0; j < doorList.size(); j++) {
+						Door door = doorList.get(j);
+						g.setColor(door.getColor());
+						g.drawRect(door.getX(), door.getY(), door.getWidth(), door.getHeight());
+						g2.setStroke(thickStroke);
+					}
+				} catch (Exception e) {
+
+				}
+
+				try {
+					ArrayList<Window> windowList = shape.getWindows();
+					for (int j = 0; j < windowList.size(); j++) {
+						Window window = windowList.get(j);
+						g.setColor(window.getColor());
+						g.drawRect(window.getX(), window.getY(), window.getWidth(), window.getHeight());
+						g2.setStroke(thickStroke);
+					}
+				} catch (Exception e) {
+
+				}
+			}
+
+			else { // type == label
 				Image img = new ImageIcon(shape.getImgPath()).getImage();
 				if (shape.isCloseSpace()) {
 					g.setColor(Color.RED);
@@ -113,29 +141,22 @@ public class CanvasPanel extends JPanel {
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
 	}
-	
+
 	/*
 	 * g.drawRect(x, y, width, 15);
-
-
-       // start == 90 // 회전을 클릭 하면 변경됨
-       start = 90;
-       g.drawArc(x, y-70/2, width*2, 70, start, 90);
-       g.drawLine(x+width,  y-70/2, x+width,  y);
-       
-       
-       //start == 0
-       start = 0;
-       g.drawArc(x-width, y-70/2, width*2, 70, start, 90);
-       g.drawLine(x, y-70/2, x,  y);
-       
-       //start == 270
-       start = 270;
-       g.drawArc(x-width, y-70/2, width*2, 70+15, start, 90);
-       g.drawLine(x, y+15, x,  y+15+70/2);
-       
-       //start == 180
-       start = 180;
-       g.drawArc(x, y-70/2, width*2, 70+15, start, 90);
-       g.drawLine(x+width, y+15, x+width,  y+15+70/2);*/
+	 * 
+	 * 
+	 * // start == 90 // 회전을 클릭 하면 변경됨 start = 90; g.drawArc(x, y-70/2, width*2,
+	 * 70, start, 90); g.drawLine(x+width, y-70/2, x+width, y);
+	 * 
+	 * 
+	 * //start == 0 start = 0; g.drawArc(x-width, y-70/2, width*2, 70, start,
+	 * 90); g.drawLine(x, y-70/2, x, y);
+	 * 
+	 * //start == 270 start = 270; g.drawArc(x-width, y-70/2, width*2, 70+15,
+	 * start, 90); g.drawLine(x, y+15, x, y+15+70/2);
+	 * 
+	 * //start == 180 start = 180; g.drawArc(x, y-70/2, width*2, 70+15, start,
+	 * 90); g.drawLine(x+width, y+15, x+width, y+15+70/2);
+	 */
 }
