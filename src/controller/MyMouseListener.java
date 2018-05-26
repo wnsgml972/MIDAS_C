@@ -147,7 +147,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 		clicked = "select";
 		canvasPanel.repaint();
 		
-	}
+	}  
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
