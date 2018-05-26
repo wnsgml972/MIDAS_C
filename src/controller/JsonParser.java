@@ -22,7 +22,6 @@ public class JsonParser {
    private BufferedWriter bufferedWriter;
    private BufferedReader bufferedReader;
    private String tmp;
-   private Shape shape;
    private String fileName;
    
 
@@ -35,7 +34,6 @@ public class JsonParser {
       try {
          bufferedReader = new BufferedReader(new FileReader(fileName));
       } catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
    }
@@ -43,7 +41,6 @@ public class JsonParser {
       try {
          bufferedWriter = new BufferedWriter(new FileWriter(fileName));
       } catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
    }

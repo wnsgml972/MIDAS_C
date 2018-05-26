@@ -1,9 +1,5 @@
 package main;
 
-import view.CanvasPanel;
-import view.MainFrame;
-import view.MainPanel;
-import view.MenuPanel;
 import view.PanelManager;
 
 import controller.*;
