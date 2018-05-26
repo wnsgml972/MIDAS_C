@@ -16,13 +16,11 @@ public class CanvasPanel extends JPanel{
 	private MainPanel mainPanel;
 	private MenuPanelController menuController;
 	int x, y, width, height;
-	
-	
+		
 	public CanvasPanel()
 	{
 		this.setLayout(null);
 		this.setBackground(Color.white);
-		
 	}
 	
 	public void paintComponent(Graphics g)

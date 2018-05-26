@@ -17,16 +17,11 @@ public class MainPanel extends JPanel{
 	{
 		this.setLayout(new BorderLayout());
 		
-		if(AppManager.createAppManager().getMenuPanel()== null)
-		{
-			AppManager.createAppManager().setCanvasPanel(new CanvasPanel());
-			AppManager.createAppManager().setMenuPanel(new MenuPanel());
-		}
-
-		
+		AppManager.createAppManager().setCanvasPanel(new CanvasPanel()); 
+		AppManager.createAppManager().setMenuPanel(new MenuPanel());
+	
 		this.add(AppManager.createAppManager().getMenuPanel(), BorderLayout.EAST);
 		this.add(AppManager.createAppManager().getCanvasPanel(), BorderLayout.CENTER);
-
 	}
 	
 

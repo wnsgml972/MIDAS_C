@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Users/KakyungLee/Desktop/git/MIDAS_C/lombok-1.16.18.jar"/>
-	<classpathentry kind="lib" path="C:/Users/KakyungLee/Desktop/git/MIDAS_C/org.json.simple-0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hscom-018/Desktop/MIDAS/MIDAS_C2/org.json.simple-0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

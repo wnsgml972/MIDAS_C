@@ -11,6 +11,7 @@ public class AppManager {
 	private MainFrame mainFrame;
 	private MainPanel mainPanel;
 	private MenuPanel menuPanel;
+	private IntroPanel introPanel;
 	private PanelManager panelManager;
 	
 	private CanvasPanelController canvasPanelController;
@@ -37,6 +38,13 @@ public class AppManager {
 
 	public void setCanvasPanel(CanvasPanel canvasPanel) {
 		this.canvasPanel = canvasPanel;
+	}
+	
+	public void setIntroPanel(IntroPanel introPanel){
+		this.introPanel = introPanel;
+	}
+	public IntroPanel getIntroPanel(){
+		return introPanel;
 	}
 
 	public MainFrame getMainFrame() {

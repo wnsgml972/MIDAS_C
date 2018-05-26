@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import main.AppManager;
+import values.GlobalNum;
 
 
 public class MainFrame extends JFrame{
@@ -25,12 +26,9 @@ public class MainFrame extends JFrame{
 		this.setSize(1000, 800);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		createMenu();
-		if(AppManager.createAppManager().getMainPanel() == null)
-		{
-			AppManager.createAppManager().setMainPanel(new MainPanel());
-		}
-
-		this.add(AppManager.createAppManager().getMainPanel());
+		
+		//AppManager.createAppManager().getPanelManager().setContentPane(GlobalNum.MAIN);
+		
 		this.setVisible(true);
 	}
 	
