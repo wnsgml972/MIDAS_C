@@ -51,7 +51,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 		else if(clicked.equals("select"))
 		{
 			
-			for(int i=mainPanel.shapeVec.size()-1;i>=0;i++)
+			for(int i=mainPanel.shapeVec.size()-1;i>=0;i--)
 			{
 				shape = mainPanel.shapeVec.get(i);
 				position =i;
@@ -78,7 +78,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 		}
 		else if(clicked.equals("erase"))
 		{
-			for(int i=mainPanel.shapeVec.size()-1;i>=0;i++)
+			for(int i=mainPanel.shapeVec.size()-1;i>=0;i--)
 			{
 				shape = mainPanel.shapeVec.get(i);
 				if(shape.getShape().equals("line"))
@@ -93,6 +93,28 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 					if(x1>=shape.getX() && x2<=shape.getWidth()+shape.getX()&& y1>=shape.getY() && y1<=shape.getHeight()+shape.getY())
 					{
 						mainPanel.shapeVec.remove(i);
+						break;
+					}
+				}
+			}
+		}
+		else if(clicked.equals("color"))
+		{
+			for(int i=mainPanel.shapeVec.size()-1;i>=0;i--)
+			{
+				shape = mainPanel.shapeVec.get(i);
+				if(shape.getShape().equals("line"))
+				{
+					if(x1>=shape.getX() && x2<=shape.getWidth() && y1>=shape.getY() && y1<=shape.getHeight()) // line
+					{
+						// line
+						break; 
+					}
+				}
+				else {
+					if(x1>=shape.getX() && x2<=shape.getWidth()+shape.getX()&& y1>=shape.getY() && y1<=shape.getHeight()+shape.getY())
+					{
+						
 						break;
 					}
 				}
@@ -190,7 +212,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 		
 	}
 
-	public void move()
+	public void move() //¼öÁ¤
 	{
 		shape = mainPanel.shapeVec.get(position);		
 		shape.setX(x2-x1+width);
