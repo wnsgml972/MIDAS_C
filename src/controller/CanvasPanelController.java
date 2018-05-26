@@ -11,6 +11,5 @@ public class CanvasPanelController{
 	{
 		canvasPanel = AppManager.createAppManager().getCanvasPanel();
 		canvasPanel.myMouseEvent(new MyMouseListener());
-	}
-	
+	}	
 }

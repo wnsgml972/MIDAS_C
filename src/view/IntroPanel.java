@@ -11,20 +11,28 @@ import main.AppManager;
 import values.GlobalNum;
 
 public class IntroPanel extends JPanel {
-	
-	private JButton startBtn = new JButton("Start!");
-	
-	public IntroPanel(){
+
+	private JButton startBtn;
+
+	public IntroPanel() {
+
 		setLayout(new FlowLayout());
-		
-		startBtn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AppManager.createAppManager().getPanelManager().setContentPane(GlobalNum.MAIN);
-			}
-		});
-		
+		startBtn = new JButton("Start!");
 		add(startBtn);
+
 	}
+
+	public void callActionListenter(ActionListener listener) {
+		startBtn.addActionListener(listener);
+	}
+
+	// getter setter
+	public JButton getStartBtn() {
+		return startBtn;
+	}
+
+	public void setStartBtn(JButton startBtn) {
+		this.startBtn = startBtn;
+	}
+
 }

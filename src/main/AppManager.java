@@ -6,32 +6,56 @@ import controller.*;
 public class AppManager {
 
 	private static AppManager appManager;
-	
+
 	private CanvasPanel canvasPanel;
 	private MainFrame mainFrame;
 	private MainPanel mainPanel;
 	private MenuPanel menuPanel;
+	private SouthMenuPanel southMenuPanel;
+	private NorthMenuPanel northMenuPanel;
+
 	private IntroPanel introPanel;
 	private PanelManager panelManager;
-	
+
 	private CanvasPanelController canvasPanelController;
 	private MainFrameController mainFrameController;
 	private MainPanelController mainPanelController;
 	private MenuPanelController menuPanelController;
-	
+
 	private JsonParser jsonParser;
-	
-	private AppManager(){}
-	
-	public static AppManager createAppManager()
-	{
-		if(appManager == null)
+
+	private SetupDialog setupDialog;
+	private IntroPanelController introPanelController;
+	private SetupDialogController setupDialogController;
+
+	private AppManager() {
+	}
+
+	public static AppManager createAppManager() {
+		if (appManager == null)
 			appManager = new AppManager();
-		
+
 		return appManager;
 	}
 
-	//getter setter
+	// getter setter
+
+	public SouthMenuPanel getSouthMenuPanel() {
+		return southMenuPanel;
+	}
+
+	public void setSouthMenuPanel(SouthMenuPanel southMenuPanel) {
+		this.southMenuPanel = southMenuPanel;
+	}
+
+	public NorthMenuPanel getNorthMenuPanel() {
+		return northMenuPanel;
+	}
+
+	public void setNorthMenuPanel(NorthMenuPanel northMenuPanel) {
+		this.northMenuPanel = northMenuPanel;
+	}
+
 	public CanvasPanel getCanvasPanel() {
 		return canvasPanel;
 	}
@@ -39,11 +63,12 @@ public class AppManager {
 	public void setCanvasPanel(CanvasPanel canvasPanel) {
 		this.canvasPanel = canvasPanel;
 	}
-	
-	public void setIntroPanel(IntroPanel introPanel){
+
+	public void setIntroPanel(IntroPanel introPanel) {
 		this.introPanel = introPanel;
 	}
-	public IntroPanel getIntroPanel(){
+
+	public IntroPanel getIntroPanel() {
 		return introPanel;
 	}
 
@@ -118,7 +143,31 @@ public class AppManager {
 	public void setPanelManager(PanelManager panelManager) {
 		this.panelManager = panelManager;
 	}
+
+	public SetupDialog getSetupDialog() {
+		return setupDialog;
+	}
+
+	public void setSetupDialog(SetupDialog setupDialog) {
+		this.setupDialog = setupDialog;
+	}
+
+	public IntroPanelController getIntroPanelController() {
+		return introPanelController;
+	}
+
+	public void setIntroPanelController(IntroPanelController introPanelController) {
+		this.introPanelController = introPanelController;
+	}
+
+	public SetupDialogController getSetupDialogController() {
+		return setupDialogController;
+	}
+
+	public void setSetupDialogController(SetupDialogController setupDialogController) {
+		this.setupDialogController = setupDialogController;
+	}
 	
-	//---------------------------------------------------------------------------//
+	// ---------------------------------------------------------------------------//
 
 }

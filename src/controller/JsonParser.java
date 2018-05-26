@@ -56,6 +56,7 @@ public class JsonParser {
 
       for (int i = 0; i < shapeVec.size(); i++) {
          sb.append("{\"");
+         
          sb.append("shape"); //key
          sb.append("\"");
          sb.append(":");
@@ -127,7 +128,29 @@ public class JsonParser {
          sb.append(shapeVec.get(i).isEmpty());
          sb.append("\"");
 
+         sb.append(",\"");
+         sb.append("type");
+         sb.append("\"");
+         sb.append(":");
+         sb.append("\"");
+         sb.append(shapeVec.get(i).getType());
+         sb.append("\"");
 
+         sb.append(",\"");
+         sb.append("imgPath");
+         sb.append("\"");
+         sb.append(":");
+         sb.append("\"");
+         sb.append(shapeVec.get(i).getImgPath());
+         sb.append("\"");
+
+         sb.append(",\""); //추가
+         sb.append("name");
+         sb.append("\"");
+         sb.append(":");
+         sb.append("\"");
+         sb.append(shapeVec.get(i).getName());
+         sb.append("\"");         
          sb.append("}");
          if (!(i == shapeVec.size() - 1)) {
             sb.append(",");
@@ -175,7 +198,8 @@ public class JsonParser {
                   , Integer.parseInt(groupObject.get("y").toString()), Integer.parseInt(groupObject.get("width").toString()), 
                   Integer.parseInt(groupObject.get("height").toString()), Integer.parseInt(groupObject.get("red").toString()),
                   Integer.parseInt(groupObject.get("green").toString()),Integer.parseInt(groupObject.get("blue").toString()),
-                  Boolean.parseBoolean(groupObject.get("empty").toString()));
+                  Boolean.parseBoolean(groupObject.get("empty").toString()), Integer.parseInt(groupObject.get("type").toString())
+                  ,groupObject.get("imgPath").toString() ,groupObject.get("name").toString());
             shapeVec.add(shape);
          }
 

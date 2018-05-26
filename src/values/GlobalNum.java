@@ -9,4 +9,6 @@ public class GlobalNum {
 	public final static String WINDOW = "window";
 	public final static String COLOR = "color";
 	public final static String CLEAR = "clear";
+	
+	public final static String PLUS = "plus";
 }

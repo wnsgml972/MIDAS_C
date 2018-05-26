@@ -31,7 +31,19 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 	private void initSelect() {
 		for (int i = 0; i < MainPanel.shapeVec.size(); i++) {
 			shape = MainPanel.shapeVec.get(i);
-			shape.setColor(new Color(0x000000));
+			if(shape.getState() == true){
+				
+				if(shape.getRed() == 255 && shape.getGreen() == 13 && shape.getBlue() == 13 ){
+					shape.setRed(0);
+					shape.setGreen(0);
+					shape.setBlue(0);
+				}
+				
+				shape.setState(false);
+				
+				
+				shape.setColor(new Color(shape.getRed(), shape.getGreen(), shape.getBlue()));
+			}
 		}
 	}
 
@@ -44,10 +56,17 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		// 선택 해제
 		initSelect();
 
-		if (clicked.equals(GlobalNum.WALL)) { //add wall
+		if (clicked.equals(GlobalNum.WALL) ) { //add wall
 			shape = new Shape(clicked, x1, y1, 0, 0);
 			MainPanel.shapeVec.addElement(shape);
-		} 
+		}
+		else if (clicked.equals(GlobalNum.DOOR) || clicked.equals(GlobalNum.WINDOW)){
+			for (int i = 0; i < MainPanel.shapeVec.size(); i++) { //여기서부터
+				
+			}
+			shape = new Shape(clicked, x1, y1, 0, 0);
+			MainPanel.shapeVec.addElement(shape);
+		}
 		else if (clicked.equals("line")) {
 			shape = new Shape(clicked, x1, y1, x1, y1);
 			MainPanel.shapeVec.addElement(shape);
@@ -64,38 +83,27 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 						height = y1 - shape.getY();
 						break;
 					}
-				} else { //Wall clicked
+				} else { //Wall clicked					
 					if (x1 >= shape.getX() && x2 <= shape.getWidth() + shape.getX() && y1 >= shape.getY()
 							&& y1 <= shape.getHeight() + shape.getY()) {
 						clicked = "clicked";
 						width = x1 - shape.getX();
 						height = y1 - shape.getY();
-						shape.setColor(new Color(0xff0000));
+						if(!(shape.getRed() == 0 && shape.getGreen() == 0  && shape.getBlue() == 0 )){
+							shape.setState(true);
+							break;
+						}
+						shape.setRed(255);
+						shape.setGreen(13);
+						shape.setBlue(13);
+						shape.setColor(new Color(255, 13,13));
+						shape.setState(true);
 						break;
 					}
 				}
 			}
 		}
-		else if (clicked.equals(GlobalNum.COLOR)) { //color clicked
-			for (int i = MainPanel.shapeVec.size() - 1; i >= 0; i--) {
-				shape = MainPanel.shapeVec.get(i);
-				if (shape.getShape().equals("line")) {
-					if (x1 >= shape.getX() && x2 <= shape.getWidth() && y1 >= shape.getY() && y1 <= shape.getHeight()) // line
-					{
-						// line
-						break;
-					}
-				} else {
-					if (x1 >= shape.getX() && x2 <= shape.getWidth() + shape.getX() && y1 >= shape.getY()
-							&& y1 <= shape.getHeight() + shape.getY()) {
-
-						break;
-					}
-				}
-			}
-		}
-
-	}
+}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -104,6 +112,12 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
 		if (clicked.equals(GlobalNum.WALL)) {
 			drawWall();
+		} 
+		else if (clicked.equals(GlobalNum.DOOR)) {
+			drawDoor();
+		} 
+		else if (clicked.equals(GlobalNum.WINDOW)) {
+			drawWindow();
 		} 
 		else if (clicked.equals("line")) {
 			drawLine();
@@ -127,6 +141,12 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		if (clicked.equals(GlobalNum.WALL)) {
 			drawWall();
 		}
+		else if (clicked.equals(GlobalNum.DOOR)) {
+			drawDoor();
+		} 
+		else if (clicked.equals(GlobalNum.WINDOW)) {
+			drawWindow();
+		} 
 		else if (clicked.equals("line")) {
 			drawLine();
 		} 
@@ -160,15 +180,57 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		shape.setWidth(width);
 		shape.setHeight(height);
 	}
+	public void drawDoor() {
+		if (x2 > x1) {
+			width = x2 - x1;
+			x = x1;
+		} else {
+			width = x1 - x2;
+			x = x2;
+		}
 
+		if (y2 > y1) {
+			height = y2 - y1;
+			y = y1;
+		} else {
+			height = y1 - y2;
+			y = y2;
+		}
+		shape = MainPanel.shapeVec.lastElement();
+		shape.setX(x);
+		shape.setY(y);
+		shape.setWidth(width);
+		shape.setHeight(height);
+	}
+	public void drawWindow() {
+		if (x2 > x1) {
+			width = x2 - x1;
+			x = x1;
+		} else {
+			width = x1 - x2;
+			x = x2;
+		}
+
+		if (y2 > y1) {
+			height = y2 - y1;
+			y = y1;
+		} else {
+			height = y1 - y2;
+			y = y2;
+		}
+		shape = MainPanel.shapeVec.lastElement();
+		shape.setX(x);
+		shape.setY(y);
+		shape.setWidth(width);
+		shape.setHeight(height);
+	}
+	
 	public void drawLine() {
-		
 		shape = MainPanel.shapeVec.lastElement();
 		shape.setX(x1);
 		shape.setWidth(x2);
 		shape.setY(y1);
 		shape.setHeight(y2);
-
 	}
 
 	public void move() 
