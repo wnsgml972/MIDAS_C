@@ -59,6 +59,7 @@ public class SetupDialogController {
 						mainPanel.getColumnLabel().setLocation(5, tempC / 2 + 10);
 
 						AppManager.createAppManager().getPanelManager().setContentPane(GlobalNum.MAIN);
+						AppManager.createAppManager().getMainFrame().enableItem();
 						setupDialog.dispose();
 
 					} else {
@@ -72,7 +73,6 @@ public class SetupDialogController {
 	}
 
 	// getter setter
-
 	public int getWidth() {
 		return width;
 	}

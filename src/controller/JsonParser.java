@@ -144,13 +144,38 @@ public class JsonParser {
          sb.append(shapeVec.get(i).getImgPath());
          sb.append("\"");
 
-         sb.append(",\""); //추가
+         sb.append(",\"");
          sb.append("name");
          sb.append("\"");
          sb.append(":");
          sb.append("\"");
          sb.append(shapeVec.get(i).getName());
-         sb.append("\"");         
+         sb.append("\"");
+         
+         sb.append(",\"");
+         sb.append("canvasWidth");
+         sb.append("\"");
+         sb.append(":");
+         sb.append("\"");
+         sb.append((int)(shapeVec.get(i).getCanvasWidth()/MainPanel.rate));
+         sb.append("\"");
+         
+         sb.append(",\"");
+         sb.append("canvasHeight");
+         sb.append("\"");
+         sb.append(":");
+         sb.append("\"");
+         sb.append((int)(shapeVec.get(i).getCanvasHeight()/MainPanel.rate));
+         sb.append("\"");
+         
+         sb.append(",\"");
+         sb.append("closeSpace");
+         sb.append("\"");
+         sb.append(":");
+         sb.append("\"");
+         sb.append(shapeVec.get(i).isCloseSpace());
+         sb.append("\"");
+         
          sb.append("}");
          if (!(i == shapeVec.size() - 1)) {
             sb.append(",");
@@ -199,7 +224,10 @@ public class JsonParser {
                   Integer.parseInt(groupObject.get("height").toString()), Integer.parseInt(groupObject.get("red").toString()),
                   Integer.parseInt(groupObject.get("green").toString()),Integer.parseInt(groupObject.get("blue").toString()),
                   Boolean.parseBoolean(groupObject.get("empty").toString()), Integer.parseInt(groupObject.get("type").toString())
-                  ,groupObject.get("imgPath").toString() ,groupObject.get("name").toString());
+                  ,groupObject.get("imgPath").toString() ,groupObject.get("name").toString(),
+                  Integer.parseInt(groupObject.get("canvasWidth").toString()), Integer.parseInt(groupObject.get("canvasHeight").toString()),
+                  Boolean.parseBoolean(groupObject.get("closeSpace").toString())
+                  );
             shapeVec.add(shape);
          }
 

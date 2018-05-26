@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
 
 import main.AppManager;
 import model.Shape;
@@ -45,6 +46,10 @@ public class MenuPanelController {
 				{
 					for (int i = MainPanel.shapeVec.size() - 1; i >= 0; i--) {
 						Shape shape = MainPanel.shapeVec.get(i);
+						if (shape.isCloseSpace()) {
+							JOptionPane.showMessageDialog(null, "벽이 모두 막혀있습니다. 색깔을 바꿀 수 없습니다.");
+							break;
+						}
 						if (shape.getState() == true) {
 							JColorChooser jColorChooser = new JColorChooser();
 							Color color = jColorChooser.showDialog(null, "Color", Color.WHITE);
@@ -63,11 +68,21 @@ public class MenuPanelController {
 					clicked = GlobalNum.CLEAR;
 				} else if (obj == menuPanel.getBasicOneBtn()) {
 					Image img = menuPanel.getBasicOneIcon().getImage();
-					MainPanel.shapeVec.addElement(new Shape(img, "./image/washer.png", 10, 10, 50, 50, "세탁기"));
+					if(AppManager.createAppManager().getCanvasPanel().getWidth() == 0){
+						return;
+					}
+					MainPanel.shapeVec.addElement(new Shape(img, "./image/washer.png", 10, 10, 50, 50, "세탁기",
+							AppManager.createAppManager().getCanvasPanel().getWidth(),
+							AppManager.createAppManager().getCanvasPanel().getHeight()));
 					AppManager.createAppManager().getCanvasPanel().repaint();
 				} else if (obj == menuPanel.getBasicTwoBtn()) {
+					if(AppManager.createAppManager().getCanvasPanel().getWidth() == 0){
+						return;
+					}	
 					Image img = menuPanel.getBasicTwoIcon().getImage();
-					MainPanel.shapeVec.addElement(new Shape(img, "./image/refrigerator.png", 10, 10, 50, 50, "냉장고"));
+					MainPanel.shapeVec.addElement(new Shape(img, "./image/refrigerator.png", 10, 10, 50, 50, "냉장고",
+							AppManager.createAppManager().getCanvasPanel().getWidth(),
+							AppManager.createAppManager().getCanvasPanel().getHeight()));
 					AppManager.createAppManager().getCanvasPanel().repaint();
 				} else if (obj == menuPanel.getPlusBtn()) {
 					Shape shape = new Shape();

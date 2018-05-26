@@ -10,6 +10,7 @@ public class AppManager {
 	private CanvasPanel canvasPanel;
 	private MainFrame mainFrame;
 	private MainPanel mainPanel;
+	private BoardPanel boardPanel;
 	private MenuPanel menuPanel;
 	private SouthMenuPanel southMenuPanel;
 	private NorthMenuPanel northMenuPanel;
@@ -40,10 +41,17 @@ public class AppManager {
 		return appManager;
 	}
 
-	// getter setter
-	
+	// getter setter	
 	public SouthMenuPanel getSouthMenuPanel() {
 		return southMenuPanel;
+	}
+
+	public BoardPanel getBoardPanel() {
+		return boardPanel;
+	}
+
+	public void setBoardPanel(BoardPanel boardPanel) {
+		this.boardPanel = boardPanel;
 	}
 
 	public ObjectDialog getObjectDialog() {

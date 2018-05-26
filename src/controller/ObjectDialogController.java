@@ -10,10 +10,15 @@ import javax.swing.JOptionPane;
 
 import main.AppManager;
 import model.Shape;
+import view.CanvasPanel;
 import view.MainPanel;
 import view.ObjectDialog;
 
 public class ObjectDialogController {
+
+	private CanvasPanel canvasPanel;
+
+	private int minusNum = 10;
 
 	private ObjectDialog objectDialog;
 	private Shape shape;
@@ -24,17 +29,27 @@ public class ObjectDialogController {
 		objectDialog = AppManager.createAppManager().getObjectDialog();
 		this.mode = mode;
 
+		canvasPanel = AppManager.createAppManager().getCanvasPanel();
+
 		objectDialog.callActionPerformed(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				if (ae.getSource() == objectDialog.getOkBtn()) {
 					System.out.println("ok");
 
-					shape.setName(objectDialog.getNameTextField().getText());
+					if (mode < 2) {
+						shape.setName(objectDialog.getNameTextField().getText());
+					}
 
 					try {
 						int widthTemp = Integer.parseInt(objectDialog.getWidthTextField().getText());
 						widthTemp = (int) (widthTemp * MainPanel.rate);
+
+						System.out.print(canvasPanel.getWidth());
+
+						if (widthTemp > canvasPanel.getWidth() - minusNum)
+							throw new Exception();
+
 						shape.setWidth(widthTemp);
 					} catch (Exception e) {
 						errorDialog();
@@ -44,12 +59,14 @@ public class ObjectDialogController {
 					try {
 						int heigthTemp = Integer.parseInt(objectDialog.getHeightTextField().getText());
 						heigthTemp = (int) (heigthTemp * MainPanel.rate);
+						if (heigthTemp > canvasPanel.getHeight() - minusNum)
+							throw new Exception();
 						shape.setHeight(heigthTemp);
 					} catch (Exception e) {
 						errorDialog();
 						return;
 					}
-					if (shape.getName().equals("") || shape.getWidth() == 0 || shape.getHeight() == 0) {
+					if ((mode < 2 && shape.getName().equals("")) || shape.getWidth() == 0 || shape.getHeight() == 0) {
 						JOptionPane.showMessageDialog(objectDialog, "올바른 입력을 해주세요", "입력 에러", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
@@ -57,14 +74,14 @@ public class ObjectDialogController {
 						shape.setImgPath("./image/default.png");
 					}
 					Image img = new ImageIcon(shape.getImgPath()).getImage();
-					if(mode == 0){
+					if (mode == 0) {
 						MainPanel.shapeVec.addElement(new Shape(img, shape.getImgPath(), 10, 10, shape.getWidth(),
-								shape.getHeight(), shape.getName()));						
+								shape.getHeight(), shape.getName(), AppManager.createAppManager().getCanvasPanel().getWidth(), AppManager.createAppManager().getCanvasPanel().getHeight()));
 					}
 					AppManager.createAppManager().getCanvasPanel().repaint();
 					objectDialog.dispose();
 
-				} else if (ae.getSource() == objectDialog.getImageBtn()) {
+				} else if (mode < 2 && ae.getSource() == objectDialog.getImageBtn()) {
 
 					FileDialog dialog;
 					StringBuilder sb = new StringBuilder("");
@@ -100,7 +117,7 @@ public class ObjectDialogController {
 	}
 
 	private void errorDialog() {
-		JOptionPane.showMessageDialog(objectDialog, "숫자를 입력해 주세요.", "숫자 에러", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(objectDialog, "숫자를 다시 확인해 주세요.", "숫자 에러", JOptionPane.ERROR_MESSAGE);
 	}
 
 }

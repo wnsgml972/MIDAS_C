@@ -39,7 +39,7 @@ public class PanelManager {
 	}
 	
 	public void startPanel(){
-		this.setContentPane(GlobalNum.INTRO);
+		this.setContentPane(GlobalNum.MAIN);
 		main.setVisible(true);
 	}
 }

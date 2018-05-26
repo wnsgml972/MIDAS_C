@@ -16,6 +16,11 @@ public class Shape {
 	private Color color;
 	private Boolean colorSelected;
 	private boolean empty;
+	private boolean closeSpace = true;  
+	
+	private int canvasWidth;
+	private int canvasHeight;
+
 	
 	private int type; //0 paint, 1 label
 	
@@ -27,26 +32,52 @@ public class Shape {
 	private Boolean state; //selected state
 	
 	public Shape() {	}
+	public Shape(Shape shape) {
+		this.shape = shape.shape;
+		x = shape.x; y = shape.y;
+		width = shape.width; height = shape.height;
+		red = shape.red;
+		green = shape.green;
+		blue = shape.blue;
+		color = shape.color;
+		colorSelected =shape.colorSelected;
+		empty = shape.empty;
+		closeSpace = shape.closeSpace;  
+		
+		canvasWidth = shape.canvasWidth;
+		canvasHeight = shape.canvasHeight;
+		
+		type = shape.type; //0 paint, 1 label
+		
+		// 1 label
+		img = shape.img;
+		imgPath = shape.imgPath;
+		name = shape.name;
+		
+		state = shape.state; //selected state
+	}
 	
 	//일반
-	public Shape(String shape, int x, int y, int width, int height){ 
+	public Shape(String shape, int x, int y, int width, int height, int canvasWidth, int canvasHeight){ 
 		this.shape = shape;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		type = 0;
-		color = Color.BLACK;
+		color = Color.red;
 		red = color.getRed();
 		green = color.getGreen();
 		blue = color.getBlue();
 		empty = true;
 		state = false;
 		colorSelected = false;
+		this.canvasHeight = canvasHeight;
+		this.canvasWidth = canvasWidth;
 	}
 	
 	//일반
-	public Shape(String shape, int x, int y, int width, int height, int red, int green, int blue ,boolean empty){
+	public Shape(String shape, int x, int y, int width, int height, int red, int green, int blue ,boolean empty, int canvasWidth, int canvasHeight){
 		this.shape = shape;
 		this.x = x;
 		this.y = y;
@@ -60,10 +91,12 @@ public class Shape {
 		color = new Color(red, green, blue);
 		state = false;
 		colorSelected = false;
+		this.canvasHeight = canvasHeight;
+		this.canvasWidth = canvasWidth;
 	}
 	
 	//이미지
-	public Shape(String shape, int x, int y, int width, int height, int red, int green, int blue ,boolean empty, int type, String imgPath, String name){
+	public Shape(String shape, int x, int y, int width, int height, int red, int green, int blue ,boolean empty, int type, String imgPath, String name, int canvasWidth, int canvasHeight, Boolean closeSpace){
 		this.shape = shape;
 		this.x = x;
 		this.y = y;
@@ -79,10 +112,13 @@ public class Shape {
 		state = false;
 		this.name = name;
 		colorSelected = false;
+		this.canvasHeight = canvasHeight;
+		this.canvasWidth = canvasWidth;
+		this.closeSpace = closeSpace;
 	}
 	
 	//이미지
-	public Shape(Image img, String imgPath, int x, int y, int width, int height, String name){
+	public Shape(Image img, String imgPath, int x, int y, int width, int height, String name, int canvasWidth, int canvasHeight){
 		this.img = img;
 		this.imgPath = imgPath;
 		this.x = x;
@@ -98,6 +134,8 @@ public class Shape {
 		state = false;
 		this.name = name;
 		colorSelected = false;
+		this.canvasHeight = canvasHeight;
+		this.canvasWidth = canvasWidth;
 	}
 	
 	public Boolean checkSelect(int selX, int selY){
@@ -117,9 +155,33 @@ public class Shape {
 	}
 
 	// getter setter
-	
+
 	public String getShape() {
 		return shape;
+	}
+
+	public boolean isCloseSpace() {
+		return closeSpace;
+	}
+
+	public void setCloseSpace(boolean closeSpace) {
+		this.closeSpace = closeSpace;
+	}
+
+	public int getCanvasWidth() {
+		return canvasWidth;
+	}
+
+	public void setCanvasWidth(int canvasWidth) {
+		this.canvasWidth = canvasWidth;
+	}
+
+	public int getCanvasHeight() {
+		return canvasHeight;
+	}
+
+	public void setCanvasHeight(int canvasHeight) {
+		this.canvasHeight = canvasHeight;
 	}
 
 	public Boolean getColorSelected() {

@@ -39,7 +39,7 @@ public class ObjectDialog extends JFrame {
 	private JPanel btnPanel;
 	private JButton okBtn;
 	private JButton cancelBtn;
-	
+
 	private int mode;
 
 	public ObjectDialog(Shape shape, int mode) {
@@ -53,18 +53,20 @@ public class ObjectDialog extends JFrame {
 		// img
 
 		// name panel
-		namePanel = new JPanel();
-		namePanel.setLayout(new FlowLayout());
-		namePanel.setSize(this.getWidth(), 30);
+		if (mode < 2) {
+			namePanel = new JPanel();
+			namePanel.setLayout(new FlowLayout());
+			namePanel.setSize(this.getWidth(), 30);
 
-		nameLabel = new JLabel("이름");
-		namePanel.add(nameLabel);
+			nameLabel = new JLabel("이름");
+			namePanel.add(nameLabel);
 
-		nameTextField = new JTextField(shape.getName());
-		nameTextField.setColumns(10);
-		namePanel.add(nameTextField);
+			nameTextField = new JTextField(shape.getName());
+			nameTextField.setColumns(10);
+			namePanel.add(nameTextField);
 
-		this.add(namePanel);
+			this.add(namePanel);
+		}
 
 		// width panel
 		widthPanel = new JPanel();
@@ -74,9 +76,7 @@ public class ObjectDialog extends JFrame {
 		widthLabel = new JLabel("가로");
 		widthPanel.add(widthLabel);
 
-		
-
-		String widthString = String.valueOf((int)(shape.getWidth() / MainPanel.rate));			
+		String widthString = String.valueOf((int) (shape.getWidth() / MainPanel.rate));
 
 		widthTextField = new JTextField(widthString);
 		widthTextField.setColumns(10);
@@ -84,7 +84,8 @@ public class ObjectDialog extends JFrame {
 
 		this.add(widthPanel);
 
-		// height panel		
+		// height panel
+
 		heightPanel = new JPanel();
 		heightPanel.setLayout(new FlowLayout());
 		heightPanel.setSize(this.getWidth(), 30);
@@ -92,8 +93,8 @@ public class ObjectDialog extends JFrame {
 		heightLabel = new JLabel("세로");
 		heightPanel.add(heightLabel);
 
-		String heightString = String.valueOf((int)(shape.getHeight()  / MainPanel.rate));
-		
+		String heightString = String.valueOf((int) (shape.getHeight() / MainPanel.rate));
+
 		heightTextField = new JTextField(heightString);
 		heightTextField.setColumns(10);
 		heightPanel.add(heightTextField);
@@ -101,14 +102,16 @@ public class ObjectDialog extends JFrame {
 		this.add(heightPanel);
 
 		// img panel
-		imagePanel = new JPanel();
-		imagePanel.setLayout(new FlowLayout());
-		imagePanel.setSize(this.getWidth(), 30);
+		if (mode < 2) {
+			imagePanel = new JPanel();
+			imagePanel.setLayout(new FlowLayout());
+			imagePanel.setSize(this.getWidth(), 30);
 
-		imageBtn = new JButton("이미지 삽입");
-		imagePanel.add(imageBtn);
+			imageBtn = new JButton("이미지 삽입");
+			imagePanel.add(imageBtn);
 
-		this.add(imagePanel);
+			this.add(imagePanel);
+		}
 
 		// button panel
 		btnPanel = new JPanel();
@@ -128,7 +131,9 @@ public class ObjectDialog extends JFrame {
 
 	public void callActionPerformed(ActionListener listener) {
 		okBtn.addActionListener(listener);
-		imageBtn.addActionListener(listener);
+		cancelBtn.addActionListener(listener);
+		if (mode < 2)
+			imageBtn.addActionListener(listener);
 	}
 
 	// getter setter
@@ -276,5 +281,5 @@ public class ObjectDialog extends JFrame {
 	public void setMode(int mode) {
 		this.mode = mode;
 	}
-	
+
 }

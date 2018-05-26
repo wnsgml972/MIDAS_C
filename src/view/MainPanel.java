@@ -28,17 +28,17 @@ public class MainPanel extends JPanel {
 		widthLabel = new JLabel("test");
 		columnLabel = new JLabel("test");
 
-		boardPanel = new JPanel();
-		boardPanel.setLayout(null);
-		boardPanel.setBackground(Color.pink);
+		AppManager.createAppManager().setBoardPanel(new BoardPanel());
+		boardPanel = AppManager.createAppManager().getBoardPanel();
+
 		boardPanel.add(widthLabel);
 		boardPanel.add(columnLabel);
 		widthLabel.setLocation(10, 10);
 
 		boardPanel.add(AppManager.createAppManager().getCanvasPanel());
-
-		AppManager.createAppManager().getCanvasPanel().setLocation(30, 30);
-
+		
+		AppManager.createAppManager().getCanvasPanel().setLocation(60, 40);
+		
 		this.add(AppManager.createAppManager().getMenuPanel(), BorderLayout.EAST);
 		this.add(boardPanel, BorderLayout.CENTER);
 	}

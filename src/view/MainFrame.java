@@ -20,8 +20,8 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		this.setSize(1200, 1000);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setResizable(false);
 		createMenu();
-
 		this.setVisible(true);
 	}
 
@@ -42,9 +42,18 @@ public class MainFrame extends JFrame {
 		fileMenu.add(exitItem);
 
 		mb.add(fileMenu);
+		disableItem();
 		setJMenuBar(mb);
 	}
-
+	public void disableItem(){
+		saveItem.setEnabled(false);
+		imgPrintItem.setEnabled(false);
+	}
+	public void enableItem(){
+		saveItem.setEnabled(true);
+		imgPrintItem.setEnabled(true);
+	}
+	
 	public void callActionListener(ActionListener listener) {
 		newItem.addActionListener(listener);
 		saveItem.addActionListener(listener);
@@ -52,9 +61,8 @@ public class MainFrame extends JFrame {
 		imgPrintItem.addActionListener(listener);
 		exitItem.addActionListener(listener); 
 	}
-
-	// getter setter
 	
+	// getter setter	
 	public JMenuItem getSaveItem() {
 		return saveItem;
 	}
