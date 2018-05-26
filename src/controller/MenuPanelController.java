@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,6 +12,7 @@ import model.Shape;
 import values.GlobalNum;
 import view.MainPanel;
 import view.MenuPanel;
+import view.ObjectDialog;
 
 public class MenuPanelController {
 
@@ -33,16 +35,13 @@ public class MenuPanelController {
 				if (obj == menuPanel.getWallBtn()) // 1
 				{
 					clicked = GlobalNum.WALL;
-				}
-				else if (obj == menuPanel.getDoorBtn()) // 2
+				} else if (obj == menuPanel.getDoorBtn()) // 2
 				{
 					clicked = GlobalNum.DOOR;
-				} 
-				else if (obj == menuPanel.getWindowBtn()) // 3
+				} else if (obj == menuPanel.getWindowBtn()) // 3
 				{
 					clicked = GlobalNum.WINDOW;
-				}
-				else if (obj == menuPanel.getColorBtn()) // 5
+				} else if (obj == menuPanel.getColorBtn()) // 5
 				{
 					for (int i = MainPanel.shapeVec.size() - 1; i >= 0; i--) {
 						Shape shape = MainPanel.shapeVec.get(i);
@@ -53,6 +52,7 @@ public class MenuPanelController {
 							shape.setGreen(color.getGreen());
 							shape.setBlue(color.getBlue());
 							shape.setColor(color);
+							shape.setColorSelected(true);
 							AppManager.createAppManager().getCanvasPanel().repaint();
 							break;
 						}
@@ -61,6 +61,20 @@ public class MenuPanelController {
 					mainPanel.shapeVec.removeAllElements();
 					AppManager.createAppManager().getCanvasPanel().repaint();
 					clicked = GlobalNum.CLEAR;
+				} else if (obj == menuPanel.getBasicOneBtn()) {
+					Image img = menuPanel.getBasicOneIcon().getImage();
+					MainPanel.shapeVec.addElement(new Shape(img, "./image/washer.png", 10, 10, 50, 50, "세탁기"));
+					AppManager.createAppManager().getCanvasPanel().repaint();
+				} else if (obj == menuPanel.getBasicTwoBtn()) {
+					Image img = menuPanel.getBasicTwoIcon().getImage();
+					MainPanel.shapeVec.addElement(new Shape(img, "./image/refrigerator.png", 10, 10, 50, 50, "냉장고"));
+					AppManager.createAppManager().getCanvasPanel().repaint();
+				} else if (obj == menuPanel.getPlusBtn()) {
+					Shape shape = new Shape();
+					AppManager.createAppManager().setObjectDialog(new ObjectDialog(shape));
+					AppManager.createAppManager().setObjectDialogController(new ObjectDialogController(shape));
+					ObjectDialog objectDialog = AppManager.createAppManager().getObjectDialog();
+					objectDialog.setVisible(true);
 				}
 
 			}

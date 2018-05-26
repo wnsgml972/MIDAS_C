@@ -18,11 +18,10 @@ import javax.swing.JTextField;
 import main.AppManager;
 import model.Shape;
 
-public class ObjectDialog extends JFrame implements ActionListener {
+public class ObjectDialog extends JFrame {
 	// private MainPanel mainPanel;
 
 	private Shape shape;
-
 	private JPanel jPanel;
 
 	private JPanel imgPanel;
@@ -48,10 +47,9 @@ public class ObjectDialog extends JFrame implements ActionListener {
 	private JButton okBtn;
 	private JButton cancelBtn;
 
-	public ObjectDialog(Shape shapeTemp) {
+	public ObjectDialog(Shape shape) {
 
-		shape = shapeTemp;
-
+		this.shape = shape;
 		this.setLayout(new GridLayout(2, 3));
 		this.setLocation(100, 200);
 
@@ -108,7 +106,6 @@ public class ObjectDialog extends JFrame implements ActionListener {
 		imagePanel.setSize(this.getWidth(), 30);
 
 		imageBtn = new JButton("이미지 삽입");
-		imageBtn.addActionListener(this);
 		imagePanel.add(imageBtn);
 
 		this.add(imagePanel);
@@ -119,11 +116,9 @@ public class ObjectDialog extends JFrame implements ActionListener {
 		btnPanel.setSize(this.getWidth(), 30);
 
 		okBtn = new JButton("저장");
-		okBtn.addActionListener(this);
 		btnPanel.add(okBtn);
 
 		cancelBtn = new JButton("취소");
-		cancelBtn.addActionListener(this);
 		btnPanel.add(cancelBtn);
 
 		this.add(btnPanel);
@@ -131,77 +126,147 @@ public class ObjectDialog extends JFrame implements ActionListener {
 		this.pack();
 	}
 
-	private void errorDialog() {
-		JOptionPane.showMessageDialog(this, "숫자를 입력해 주세요", "숫자 에러", JOptionPane.ERROR_MESSAGE);
+	public void callActionPerformed(ActionListener listener) {
+		okBtn.addActionListener(listener);
+		imageBtn.addActionListener(listener);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == okBtn) {
-			System.out.println("ok");
+	// getter setter
 
-			shape.setName(nameTextField.getText());
-
-			try {
-				
-				/* width */
-				int widthTemp = Integer.parseInt(widthTextField.getText());
-				shape.setWidth(widthTemp);
-			} catch (Exception e) {
-				errorDialog();
-				return;
-			}
-
-			try {
-				
-				/* height */
-				int heigthTemp = Integer.parseInt(heightTextField.getText());
-				shape.setHeight(heigthTemp);
-			} catch (Exception e) {
-				errorDialog();
-				return;
-			}
-			if(shape.getName()  == null  || shape.getWidth()  == 0 ||
-					shape.getWidth() == 0 ){
-				JOptionPane.showMessageDialog(this, "올바른 입력을 해주세요", "입력 에러", JOptionPane.ERROR_MESSAGE);
-			}
-			if(shape.getImgPath() == null){
-				shape.setImgPath("./image/default.png");
-			}
-			Image img = new ImageIcon(shape.getImgPath()).getImage();
-			MainPanel.shapeVec.addElement(new Shape(img, shape.getImgPath() ,10, 10,  shape.getWidth(), shape.getHeight(), shape.getName()));
-			AppManager.createAppManager().getCanvasPanel().repaint();
-			dispose();
-			
-		} else if (ae.getSource() == imageBtn) {
-			
-			// 수정
-			FileDialog dialog;
-			StringBuilder sb = new StringBuilder("");
-			String imgPath;
-			dialog = new FileDialog(AppManager.createAppManager().getMainFrame(), "Load image", FileDialog.LOAD);
-			dialog.setDirectory(".");
-			dialog.setVisible(true);
-
-			if (dialog.getFile() == null)
-				return;
-			System.out.println(dialog.getFile());
-			
-			sb.append("./image/");
-			if(dialog.getFile().contains(".txt") || dialog.getFile().contains(".hwp") || dialog.getFile().contains(".jar")
-					 || dialog.getFile().contains(".md") || dialog.getFile().contains(".pptx") ){
-				JOptionPane.showMessageDialog(this, "그림 파일이 아닙니다. 기본 이미지로 대체합니다.", "파일 입력 에러", JOptionPane.ERROR_MESSAGE);
-				sb.append("default.png");
-			}
-			else {
-				sb.append(dialog.getFile());
-			}
-			imgPath = sb.toString();
-			shape.setImgPath(imgPath);
-			
-		} else {
-			System.out.println("cancel");
-			dispose();
-		}
+	public JPanel getjPanel() {
+		return jPanel;
 	}
+
+	public void setjPanel(JPanel jPanel) {
+		this.jPanel = jPanel;
+	}
+
+	public JPanel getImgPanel() {
+		return imgPanel;
+	}
+
+	public void setImgPanel(JPanel imgPanel) {
+		this.imgPanel = imgPanel;
+	}
+
+	public JButton getImgBtn() {
+		return imgBtn;
+	}
+
+	public void setImgBtn(JButton imgBtn) {
+		this.imgBtn = imgBtn;
+	}
+
+	public JPanel getNamePanel() {
+		return namePanel;
+	}
+
+	public void setNamePanel(JPanel namePanel) {
+		this.namePanel = namePanel;
+	}
+
+	public JLabel getNameLabel() {
+		return nameLabel;
+	}
+
+	public void setNameLabel(JLabel nameLabel) {
+		this.nameLabel = nameLabel;
+	}
+
+	public JTextField getNameTextField() {
+		return nameTextField;
+	}
+
+	public void setNameTextField(JTextField nameTextField) {
+		this.nameTextField = nameTextField;
+	}
+
+	public JPanel getWidthPanel() {
+		return widthPanel;
+	}
+
+	public void setWidthPanel(JPanel widthPanel) {
+		this.widthPanel = widthPanel;
+	}
+
+	public JLabel getWidthLabel() {
+		return widthLabel;
+	}
+
+	public void setWidthLabel(JLabel widthLabel) {
+		this.widthLabel = widthLabel;
+	}
+
+	public JTextField getWidthTextField() {
+		return widthTextField;
+	}
+
+	public void setWidthTextField(JTextField widthTextField) {
+		this.widthTextField = widthTextField;
+	}
+
+	public JPanel getHeightPanel() {
+		return heightPanel;
+	}
+
+	public void setHeightPanel(JPanel heightPanel) {
+		this.heightPanel = heightPanel;
+	}
+
+	public JLabel getHeightLabel() {
+		return heightLabel;
+	}
+
+	public void setHeightLabel(JLabel heightLabel) {
+		this.heightLabel = heightLabel;
+	}
+
+	public JTextField getHeightTextField() {
+		return heightTextField;
+	}
+
+	public void setHeightTextField(JTextField heightTextField) {
+		this.heightTextField = heightTextField;
+	}
+
+	public JPanel getImagePanel() {
+		return imagePanel;
+	}
+
+	public void setImagePanel(JPanel imagePanel) {
+		this.imagePanel = imagePanel;
+	}
+
+	public JButton getImageBtn() {
+		return imageBtn;
+	}
+
+	public void setImageBtn(JButton imageBtn) {
+		this.imageBtn = imageBtn;
+	}
+
+	public JPanel getBtnPanel() {
+		return btnPanel;
+	}
+
+	public void setBtnPanel(JPanel btnPanel) {
+		this.btnPanel = btnPanel;
+	}
+
+	public JButton getOkBtn() {
+		return okBtn;
+	}
+
+	public void setOkBtn(JButton okBtn) {
+		this.okBtn = okBtn;
+	}
+
+	public JButton getCancelBtn() {
+		return cancelBtn;
+	}
+
+	public void setCancelBtn(JButton cancelBtn) {
+		this.cancelBtn = cancelBtn;
+	}
+
 }

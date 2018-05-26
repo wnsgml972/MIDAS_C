@@ -26,7 +26,7 @@ public class CanvasPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		int size = MainPanel.shapeVec.size();
-
+		
 		for (int i = 0; i < size; i++) {
 			Shape shape = MainPanel.shapeVec.get(i);
 			
@@ -74,7 +74,7 @@ public class CanvasPanel extends JPanel {
 					break;
 				}
 			}
-			else{ //type == label
+			else { //type == label
 				Image img = new ImageIcon(shape.getImgPath()).getImage();
 				g.setColor(Color.black);
 				g.drawImage(img, x, y, width, height, this);
@@ -87,5 +87,4 @@ public class CanvasPanel extends JPanel {
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
 	}
-
 }

@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
 	private JMenuItem newItem;
 	private JMenuItem saveItem;
 	private JMenuItem loadItem;
+	private JMenuItem imgPrintItem;
 	private JMenuItem exitItem;
 
 	public MainFrame() {
@@ -30,11 +31,13 @@ public class MainFrame extends JFrame {
 		newItem = new JMenuItem("New");
 		saveItem = new JMenuItem("Save");
 		loadItem = new JMenuItem("Load");
+		imgPrintItem = new JMenuItem("Image Print");
 		exitItem = new JMenuItem("Exit");
 
 		fileMenu.add(newItem);
 		fileMenu.add(saveItem);
 		fileMenu.add(loadItem);
+		fileMenu.add(imgPrintItem);
 		fileMenu.addSeparator();
 		fileMenu.add(exitItem);
 
@@ -46,13 +49,22 @@ public class MainFrame extends JFrame {
 		newItem.addActionListener(listener);
 		saveItem.addActionListener(listener);
 		loadItem.addActionListener(listener);
+		imgPrintItem.addActionListener(listener);
 		exitItem.addActionListener(listener); 
 	}
 
 	// getter setter
-
+	
 	public JMenuItem getSaveItem() {
 		return saveItem;
+	}
+
+	public JMenuItem getImgPrintItem() {
+		return imgPrintItem;
+	}
+
+	public void setImgPrintItem(JMenuItem imgPrintItem) {
+		this.imgPrintItem = imgPrintItem;
 	}
 
 	public JMenuItem getNewItem() {

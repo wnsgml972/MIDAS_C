@@ -13,6 +13,7 @@ public class AppManager {
 	private MenuPanel menuPanel;
 	private SouthMenuPanel southMenuPanel;
 	private NorthMenuPanel northMenuPanel;
+	private ObjectDialog objectDialog;
 
 	private IntroPanel introPanel;
 	private PanelManager panelManager;
@@ -21,6 +22,7 @@ public class AppManager {
 	private MainFrameController mainFrameController;
 	private MainPanelController mainPanelController;
 	private MenuPanelController menuPanelController;
+	private ObjectDialogController objectDialogController;
 
 	private JsonParser jsonParser;
 
@@ -39,9 +41,25 @@ public class AppManager {
 	}
 
 	// getter setter
-
+	
 	public SouthMenuPanel getSouthMenuPanel() {
 		return southMenuPanel;
+	}
+
+	public ObjectDialog getObjectDialog() {
+		return objectDialog;
+	}
+
+	public void setObjectDialog(ObjectDialog objectDialog) {
+		this.objectDialog = objectDialog;
+	}
+
+	public ObjectDialogController getObjectDialogController() {
+		return objectDialogController;
+	}
+
+	public void setObjectDialogController(ObjectDialogController objectDialogController) {
+		this.objectDialogController = objectDialogController;
 	}
 
 	public void setSouthMenuPanel(SouthMenuPanel southMenuPanel) {
@@ -167,7 +185,7 @@ public class AppManager {
 	public void setSetupDialogController(SetupDialogController setupDialogController) {
 		this.setupDialogController = setupDialogController;
 	}
-	
+
 	// ---------------------------------------------------------------------------//
 
 }

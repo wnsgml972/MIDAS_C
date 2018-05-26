@@ -21,6 +21,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 	private String clicked;
 	private int position;
 
+	private int clickRange = 20;
+
 	public MyMouseListener() {
 		canvasController = AppManager.createAppManager().getCanvasPanelController();
 		canvasPanel = AppManager.createAppManager().getCanvasPanel();
@@ -33,14 +35,13 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			shape = MainPanel.shapeVec.get(i);
 			if (shape.getState() == true) {
 
-				if (shape.getRed() == 255 && shape.getGreen() == 13 && shape.getBlue() == 13) {
+				if (shape.getColorSelected() == false) {
 					shape.setRed(0);
 					shape.setGreen(0);
 					shape.setBlue(0);
 				}
 
 				shape.setState(false);
-
 				shape.setColor(new Color(shape.getRed(), shape.getGreen(), shape.getBlue()));
 			}
 		}
@@ -75,6 +76,12 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			for (int i = MainPanel.shapeVec.size() - 1; i >= 0; i--) {
 				shape = MainPanel.shapeVec.get(i);
 				position = i;
+
+				int xTmp1 = shape.getX();
+				int xTmp2 = shape.getX() + shape.getWidth();
+				int yTmp1 = shape.getY();
+				int yTmp2 = shape.getY() + shape.getHeight();
+
 				if (shape.getShape().equals("line")) { // Line clicked
 					if (x1 >= shape.getX() && x2 <= shape.getWidth() && y1 >= shape.getY() && y1 <= shape.getHeight()) {
 						clicked = "clicked";
@@ -83,23 +90,52 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 						break;
 					}
 				} else { // Wall clicked
-					if (x1 >= shape.getX() && x2 <= shape.getWidth() + shape.getX() && y1 >= shape.getY()
-							&& y1 <= shape.getHeight() + shape.getY()) {
-						clicked = "clicked";
-						width = x1 - shape.getX();
-						height = y1 - shape.getY();
-						if (!(shape.getRed() == 0 && shape.getGreen() == 0 && shape.getBlue() == 0)) {
+							// if (x1 >= shape.getX() && x2 <= shape.getWidth()
+							// + shape.getX() && y1 >= shape.getY()
+							// && y1 <= shape.getHeight() + shape.getY())
+							// 위 -> 오른쪽 -> 아래 -> 왼쪽 순서로 검사
+					if (shape.getType() == 0) {
+						if ((xTmp1 <= x1 && x1 <= xTmp2 && yTmp1 - clickRange <= y1 && y1 <= yTmp1 + clickRange)
+								|| (yTmp1 <= y1 && y1 <= yTmp2 && xTmp2 - clickRange <= x1 && x1 <= xTmp2 + clickRange)
+								|| (xTmp1 <= x1 && x1 <= xTmp2 && yTmp2 - clickRange <= y1 && y1 <= yTmp2 + clickRange)
+								|| (yTmp1 <= y1 && y1 <= yTmp2 && xTmp1 - clickRange <= x1
+										&& x1 <= xTmp1 + clickRange)) {
+							clicked = "clicked";
+							width = x1 - shape.getX();
+							height = y1 - shape.getY();
+							if (shape.getColorSelected() == true) { //color select
+								shape.setColor(new Color(255, 0, 0));
+								shape.setState(true);
+								break;
+							}
+							//color select
+							shape.setRed(255);
+							shape.setGreen(0);
+							shape.setBlue(0);
+							shape.setColor(new Color(255, 0, 0));
+							shape.setState(true);
+							break;							
+						}
+					} else if (shape.getType() == 1) {
+						if (x1 >= shape.getX() && x2 <= shape.getWidth() + shape.getX() && y1 >= shape.getY()
+								&& y1 <= shape.getHeight() + shape.getY()) {
+							clicked = "clicked";
+							width = x1 - shape.getX();
+							height = y1 - shape.getY();
+							if (!(shape.getRed() == 0 && shape.getGreen() == 0 && shape.getBlue() == 0)) {
+								shape.setState(true);
+								break;
+							}
+							shape.setRed(255);
+							shape.setGreen(0);
+							shape.setBlue(0);
+							shape.setColor(new Color(255, 0, 0));
 							shape.setState(true);
 							break;
 						}
-						shape.setRed(255);
-						shape.setGreen(13);
-						shape.setBlue(13);
-						shape.setColor(new Color(255, 13, 13));
-						shape.setState(true);
-						break;
 					}
 				}
+
 			}
 		}
 	}
@@ -180,6 +216,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 	}
 
 	public void drawDoor() {
+		
 		if (x2 > x1) {
 			width = x2 - x1;
 			x = x1;

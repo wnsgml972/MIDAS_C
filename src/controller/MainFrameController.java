@@ -17,6 +17,9 @@ public class MainFrameController {
 	private MainFrame mainFrame;
 	private JsonParser jsonParser;
 	private FileDialog dialog;
+	
+	//image print
+	private Boolean imgPrintState = true;
 
 	public MainFrameController() {
 		mainFrame = AppManager.createAppManager().getMainFrame();
@@ -30,17 +33,23 @@ public class MainFrameController {
 				if (obj == mainFrame.getNewItem()) // 이전 저장 여부, clear
 				{
 					newFile();
-				} else if (obj == mainFrame.getSaveItem()) {
+				} 
+				else if (obj == mainFrame.getSaveItem()) {
 					saveFile();
-
-				} else if (obj == mainFrame.getLoadItem()) {
+				} 
+				else if (obj == mainFrame.getLoadItem()) {
 					loadFile();
-				} else if (obj == mainFrame.getExitItem()) {
+				}				
+				else if (obj == mainFrame.getImgPrintItem()) {
+					imgPrint();
+				}
+				else if (obj == mainFrame.getExitItem()) {
 					System.exit(0);
 				}
 
 			}
 		});
+
 	}
 
 	public void saveFile() {
@@ -95,6 +104,14 @@ public class MainFrameController {
 			MainPanel.shapeVec = jsonParser.load();
 			AppManager.createAppManager().getCanvasPanel().repaint();
 
+		}
+	}	
+	public void imgPrint() {
+		if(imgPrintState){
+			
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "벽이 모두 막혀있습니다.");
 		}
 	}
 }

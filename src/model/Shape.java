@@ -14,6 +14,7 @@ public class Shape {
 	private int green;
 	private int blue;
 	private Color color;
+	private Boolean colorSelected;
 	private boolean empty;
 	
 	private int type; //0 paint, 1 label
@@ -41,6 +42,7 @@ public class Shape {
 		blue = color.getBlue();
 		empty = true;
 		state = false;
+		colorSelected = false;
 	}
 	
 	//일반
@@ -57,6 +59,7 @@ public class Shape {
 		type = 0;
 		color = new Color(red, green, blue);
 		state = false;
+		colorSelected = false;
 	}
 	
 	//이미지
@@ -75,6 +78,7 @@ public class Shape {
 		color = new Color(red, green, blue);
 		state = false;
 		this.name = name;
+		colorSelected = false;
 	}
 	
 	//이미지
@@ -93,6 +97,7 @@ public class Shape {
 		type = 1;
 		state = false;
 		this.name = name;
+		colorSelected = false;
 	}
 	
 	public Boolean checkSelect(int selX, int selY){
@@ -112,8 +117,17 @@ public class Shape {
 	}
 
 	// getter setter
+	
 	public String getShape() {
 		return shape;
+	}
+
+	public Boolean getColorSelected() {
+		return colorSelected;
+	}
+
+	public void setColorSelected(Boolean colorSelected) {
+		this.colorSelected = colorSelected;
 	}
 
 	public String getName() {
