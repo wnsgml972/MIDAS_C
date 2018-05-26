@@ -71,8 +71,8 @@ public class MenuPanelController {
 					AppManager.createAppManager().getCanvasPanel().repaint();
 				} else if (obj == menuPanel.getPlusBtn()) {
 					Shape shape = new Shape();
-					AppManager.createAppManager().setObjectDialog(new ObjectDialog(shape));
-					AppManager.createAppManager().setObjectDialogController(new ObjectDialogController(shape));
+					AppManager.createAppManager().setObjectDialog(new ObjectDialog(shape, 0));
+					AppManager.createAppManager().setObjectDialogController(new ObjectDialogController(shape, 0));
 					ObjectDialog objectDialog = AppManager.createAppManager().getObjectDialog();
 					objectDialog.setVisible(true);
 				}

@@ -10,6 +10,7 @@ import model.Shape;
 import values.GlobalNum;
 import view.CanvasPanel;
 import view.MainPanel;
+import view.ObjectPopUpMenu;
 
 public class MyMouseListener implements MouseListener, MouseMotionListener {
 
@@ -114,11 +115,17 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 							shape.setBlue(0);
 							shape.setColor(new Color(255, 0, 0));
 							shape.setState(true);
-							break;							
+							break;	
 						}
 					} else if (shape.getType() == 1) {
 						if (x1 >= shape.getX() && x2 <= shape.getWidth() + shape.getX() && y1 >= shape.getY()
 								&& y1 <= shape.getHeight() + shape.getY()) {
+							// 마우스 우클릭
+		                     if(e.getModifiers() == MouseEvent.BUTTON3_MASK) {
+		                        ObjectPopUpMenu test = new ObjectPopUpMenu(position);
+		                        test.show(e.getComponent(), x1, y1);
+		                        return;
+		                     }
 							clicked = "clicked";
 							width = x1 - shape.getX();
 							height = y1 - shape.getY();

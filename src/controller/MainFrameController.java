@@ -1,12 +1,20 @@
 package controller;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
 import java.awt.FileDialog;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionListener;
 
 import main.AppManager;
 import view.MainFrame;
@@ -17,9 +25,10 @@ public class MainFrameController {
 	private MainFrame mainFrame;
 	private JsonParser jsonParser;
 	private FileDialog dialog;
-	
-	//image print
+
+	// image print
 	private Boolean imgPrintState = true;
+	private Image img = null;
 
 	public MainFrameController() {
 		mainFrame = AppManager.createAppManager().getMainFrame();
@@ -33,17 +42,13 @@ public class MainFrameController {
 				if (obj == mainFrame.getNewItem()) // 이전 저장 여부, clear
 				{
 					newFile();
-				} 
-				else if (obj == mainFrame.getSaveItem()) {
+				} else if (obj == mainFrame.getSaveItem()) {
 					saveFile();
-				} 
-				else if (obj == mainFrame.getLoadItem()) {
+				} else if (obj == mainFrame.getLoadItem()) {
 					loadFile();
-				}				
-				else if (obj == mainFrame.getImgPrintItem()) {
+				} else if (obj == mainFrame.getImgPrintItem()) {
 					imgPrint();
-				}
-				else if (obj == mainFrame.getExitItem()) {
+				} else if (obj == mainFrame.getExitItem()) {
 					System.exit(0);
 				}
 
@@ -105,13 +110,34 @@ public class MainFrameController {
 			AppManager.createAppManager().getCanvasPanel().repaint();
 
 		}
-	}	
+	}
+
 	public void imgPrint() {
-		if(imgPrintState){
-			
+		if (imgPrintState) {
+			capture();
+			System.out.println("캡쳐!");
+
+		} else {
+			JOptionPane.showMessageDialog(null, "벽이 모두 막혀있습니다. 올바른 인테리어를 만들어주세요.");
 		}
-		else{
-			JOptionPane.showMessageDialog(null, "벽이 모두 막혀있습니다.");
+	}
+
+	public void capture() {
+		try {
+			Robot robot = new Robot();
+			// 내 모니터 화면의 크기를 가져오는 방법
+			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+			// 모니터의 화면을 selectRect에 가로,세로 표현
+			Rectangle selectRect = new Rectangle((int) screen.getWidth(), (int) screen.getHeight());
+			for (int i = 0; i < 2; i++) {
+				BufferedImage buffimg = robot.createScreenCapture(selectRect);
+				File screenfile = new File("screen" + i + ".jpg");
+				ImageIO.write(buffimg, "jpg", screenfile);
+			}
+		} catch (AWTException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

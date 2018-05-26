@@ -17,5 +17,4 @@ public class App {
 		AppManager.createAppManager().setCanvasPanelController(new CanvasPanelController());
 		
 	}
-
 }

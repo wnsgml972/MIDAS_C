@@ -1,25 +1,18 @@
 package view;
 
-import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import main.AppManager;
 import model.Shape;
 
 public class ObjectDialog extends JFrame {
-	// private MainPanel mainPanel;
 
 	private Shape shape;
 	private JPanel jPanel;
@@ -46,12 +39,15 @@ public class ObjectDialog extends JFrame {
 	private JPanel btnPanel;
 	private JButton okBtn;
 	private JButton cancelBtn;
+	
+	private int mode;
 
-	public ObjectDialog(Shape shape) {
+	public ObjectDialog(Shape shape, int mode) {
 
 		this.shape = shape;
 		this.setLayout(new GridLayout(2, 3));
 		this.setLocation(100, 200);
+		this.mode = mode;
 
 		// default value
 		// img
@@ -78,14 +74,17 @@ public class ObjectDialog extends JFrame {
 		widthLabel = new JLabel("가로");
 		widthPanel.add(widthLabel);
 
-		String widthString = String.valueOf(shape.getWidth());
+		
+
+		String widthString = String.valueOf((int)(shape.getWidth() / MainPanel.rate));			
+
 		widthTextField = new JTextField(widthString);
 		widthTextField.setColumns(10);
 		widthPanel.add(widthTextField);
 
 		this.add(widthPanel);
 
-		// height panel
+		// height panel		
 		heightPanel = new JPanel();
 		heightPanel.setLayout(new FlowLayout());
 		heightPanel.setSize(this.getWidth(), 30);
@@ -93,7 +92,8 @@ public class ObjectDialog extends JFrame {
 		heightLabel = new JLabel("세로");
 		heightPanel.add(heightLabel);
 
-		String heightString = String.valueOf(shape.getHeight());
+		String heightString = String.valueOf((int)(shape.getHeight()  / MainPanel.rate));
+		
 		heightTextField = new JTextField(heightString);
 		heightTextField.setColumns(10);
 		heightPanel.add(heightTextField);
@@ -269,4 +269,12 @@ public class ObjectDialog extends JFrame {
 		this.cancelBtn = cancelBtn;
 	}
 
+	public int getMode() {
+		return mode;
+	}
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
+	
 }

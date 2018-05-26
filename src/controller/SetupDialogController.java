@@ -35,19 +35,21 @@ public class SetupDialogController {
 						setupDialog.getAskSentence().setText("정확하게 입력해주세요!!");						
 					}
 
-					if (width != 0 && column != 0) {
+					if (width != 0 && column != 0) {						
 						int stand = 700;
 						int tempW, tempC;
 						if (width >= column) {
 							double temp = (double)stand / width;
+							AppManager.createAppManager().getMainPanel().rate = temp;
 							tempC = (int) (column * temp);
 							tempW = stand;
 						} else {
 							double temp = (double)stand / column;
+							AppManager.createAppManager().getMainPanel().rate = temp;
 							tempW = (int) (width * temp);
 							tempC = stand;
 						}
-
+						
 						canvasPanel.setSize(tempW, tempC);
 						mainPanel.getWidthLabel().setText(width + "");
 						mainPanel.getColumnLabel().setText(column + "");

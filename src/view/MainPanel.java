@@ -13,7 +13,8 @@ import model.Shape;
 public class MainPanel extends JPanel {
 
 	public static Vector<Shape> shapeVec = new Vector<Shape>();
-
+	public static double rate;
+	
 	private JPanel boardPanel;
 	private JLabel widthLabel;
 	private JLabel columnLabel;
