@@ -21,6 +21,7 @@ public class MainFrame extends JFrame {
 		this.setSize(1200, 1000);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
+		setTitle("MIDAS CHALLENGE 2018 화이팅");
 		createMenu();
 		this.setVisible(true);
 	}

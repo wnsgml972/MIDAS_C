@@ -2,8 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.awt.Image;
-
-import javax.swing.JLabel;
+import java.util.ArrayList;
 
 public class Shape {
 
@@ -16,49 +15,61 @@ public class Shape {
 	private Color color;
 	private Boolean colorSelected;
 	private boolean empty;
-	private boolean closeSpace = true;  
-	
+	private boolean closeSpace = true;
+
 	private int canvasWidth;
 	private int canvasHeight;
 
-	
-	private int type; //0 paint, 1 label
-	
+	private int type; // 0 paint, 1 label
+
 	// 1 label
 	private Image img;
 	private String imgPath;
 	private String name;
-	
-	private Boolean state; //selected state
-	
-	public Shape() {	}
+
+	private Boolean state; // selected state
+	private ArrayList<Door> doorList = new ArrayList<Door>();
+	private ArrayList<Window> windowList = new ArrayList<Window>();
+
+	public Shape() {
+	}
+
 	public Shape(Shape shape) {
 		this.shape = shape.shape;
-		x = shape.x; y = shape.y;
-		width = shape.width; height = shape.height;
-		red = shape.red;
-		green = shape.green;
-		blue = shape.blue;
-		color = shape.color;
-		colorSelected =shape.colorSelected;
+		x = shape.x;
+		y = shape.y;
+		width = shape.width;
+		height = shape.height;
+		if (shape.closeSpace) {
+			red = 255;
+			green = 0;
+			blue = 0;
+			color = new Color(255, 0, 0);
+		} else {
+			red = shape.red;
+			green = shape.green;
+			blue = shape.blue;
+			color = shape.color;
+		}
+		colorSelected = shape.colorSelected;
 		empty = shape.empty;
-		closeSpace = shape.closeSpace;  
-		
+		closeSpace = shape.closeSpace;
+
 		canvasWidth = shape.canvasWidth;
 		canvasHeight = shape.canvasHeight;
-		
-		type = shape.type; //0 paint, 1 label
-		
+
+		type = shape.type; // 0 paint, 1 label
+
 		// 1 label
 		img = shape.img;
 		imgPath = shape.imgPath;
 		name = shape.name;
-		
-		state = shape.state; //selected state
+
+		state = false; // selected state
 	}
-	
-	//일반
-	public Shape(String shape, int x, int y, int width, int height, int canvasWidth, int canvasHeight){ 
+
+	// 일반
+	public Shape(String shape, int x, int y, int width, int height, int canvasWidth, int canvasHeight) {
 		this.shape = shape;
 		this.x = x;
 		this.y = y;
@@ -75,9 +86,10 @@ public class Shape {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
 	}
-	
-	//일반
-	public Shape(String shape, int x, int y, int width, int height, int red, int green, int blue ,boolean empty, int canvasWidth, int canvasHeight){
+
+	// 일반
+	public Shape(String shape, int x, int y, int width, int height, int red, int green, int blue, boolean empty,
+			int canvasWidth, int canvasHeight) {
 		this.shape = shape;
 		this.x = x;
 		this.y = y;
@@ -94,9 +106,10 @@ public class Shape {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
 	}
-	
-	//이미지
-	public Shape(String shape, int x, int y, int width, int height, int red, int green, int blue ,boolean empty, int type, String imgPath, String name, int canvasWidth, int canvasHeight, Boolean closeSpace){
+
+	// 이미지
+	public Shape(String shape, int x, int y, int width, int height, int red, int green, int blue, boolean empty,
+			int type, String imgPath, String name, int canvasWidth, int canvasHeight, Boolean closeSpace, ArrayList<Door> doorList,  ArrayList<Window> windowList) {
 		this.shape = shape;
 		this.x = x;
 		this.y = y;
@@ -115,10 +128,13 @@ public class Shape {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
 		this.closeSpace = closeSpace;
+		this.doorList = doorList;
+		this.windowList = windowList;
 	}
-	
-	//이미지
-	public Shape(Image img, String imgPath, int x, int y, int width, int height, String name, int canvasWidth, int canvasHeight){
+
+	// 이미지
+	public Shape(Image img, String imgPath, int x, int y, int width, int height, String name, int canvasWidth,
+			int canvasHeight) {
 		this.img = img;
 		this.imgPath = imgPath;
 		this.x = x;
@@ -137,24 +153,36 @@ public class Shape {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
 	}
-	
-	public Boolean checkSelect(int selX, int selY){
-		
+
+	public Boolean checkSelect(int selX, int selY) {
+
 		int widthTemp = width;
 		int heightTemp = height;
-		if(widthTemp < 0)
+		if (widthTemp < 0)
 			widthTemp *= -1;
-		if(heightTemp < 0)
+		if (heightTemp < 0)
 			heightTemp *= -1;
-		
-		if(selX >= x && selX <= x+widthTemp &&
-				selY >= y && selY <= y+heightTemp){
+
+		if (selX >= x && selX <= x + widthTemp && selY >= y && selY <= y + heightTemp) {
 			return true;
-		}
-		else return false;
+		} else
+			return false;
 	}
 
 	// getter setter
+	public ArrayList<Door> getDoors() {
+		return doorList;
+	}
+	public ArrayList<Window> getWindows() {
+		return windowList;
+	}
+
+	public void addDoor(Door door) {
+		doorList.add(door);
+	}
+	public void addWindow(Window window) {
+		windowList.add(window);
+	}
 
 	public String getShape() {
 		return shape;
@@ -308,6 +336,6 @@ public class Shape {
 		this.state = state;
 	}
 	
-	//-------------------------------------------------------
-	
+	// -------------------------------------------------------
+
 }

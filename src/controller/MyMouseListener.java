@@ -108,18 +108,18 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 							if (e.getModifiers() == MouseEvent.BUTTON3_MASK) {
 								ObjectPopUpMenu test = new ObjectPopUpMenu(position, 2);
 								test.show(e.getComponent(), x1, y1);
-								return;
+
 							}
 							clicked = "clicked";
 							width = x1 - shape.getX();
 							height = y1 - shape.getY();
 							if (shape.getColorSelected() == true) { // color
 								// select
-								shape.setColor(new Color(0, 0, 255));
+								//shape.setColor(new Color(0, 0, 255));
 								shape.setState(true);
 								break;
 							}
-							// color select
+							// color not select
 							shape.setRed(0);
 							shape.setGreen(0);
 							shape.setBlue(255);
@@ -134,19 +134,19 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 							if (e.getModifiers() == MouseEvent.BUTTON3_MASK) {
 								ObjectPopUpMenu test = new ObjectPopUpMenu(position, 1);
 								test.show(e.getComponent(), x1, y1);
-								return;
 							}
 							clicked = "clicked";
 							width = x1 - shape.getX();
 							height = y1 - shape.getY();
-							if (!(shape.getRed() == 0 && shape.getGreen() == 0 && shape.getBlue() == 0)) {
+							if (shape.getColorSelected() == true) { //color select
 								shape.setState(true);
 								break;
 							}
-							shape.setRed(255);
+							// color not select
+							shape.setRed(0);
 							shape.setGreen(0);
-							shape.setBlue(0);
-							shape.setColor(new Color(255, 0, 0));
+							shape.setBlue(255);
+							shape.setColor(new Color(0, 0, 255));
 							shape.setState(true);
 							break;
 						}

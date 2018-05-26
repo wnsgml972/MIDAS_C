@@ -38,7 +38,7 @@ public class ObjectDialogController {
 					System.out.println("ok");
 
 					if (mode < 2) {
-						shape.setName(objectDialog.getNameTextField().getText());
+						shape.setName(objectDialog.getNameTextField().getText().trim());
 					}
 
 					try {

@@ -44,11 +44,11 @@ public class MainFrameController {
 
 				if (obj == mainFrame.getNewItem()) // 이전 저장 여부, clear
 				{
-					if(MainPanel.shapeVec.size() == 0){
+					if(MainPanel.shapeVec.size() == 0) {
 						AppManager.createAppManager().setSetupDialog(new SetupDialog());
 						AppManager.createAppManager().setSetupDialogController(new SetupDialogController());
-					}else{
-						newFile();						
+					} else {
+						newFile();
 					}
 				} else if (obj == mainFrame.getSaveItem()) {
 					saveFile();
@@ -196,7 +196,8 @@ public class MainFrameController {
 			if (dialog.getFile() == null)
 				return;
 			
-			File screenfile = new File(dialog.getFile());
+			File screenfile = new File(dialog.getDirectory() + dialog.getFile());
+
 			if(!(dialog.getFile().contains("jpg") || dialog.getFile().contains("jpeg") || dialog.getFile().contains("svc") || 
 					dialog.getFile().contains("png"))){
 				JOptionPane.showMessageDialog(null, "올바른 그림파일 형식이 아닙니다. 다시 확인해주세요");
