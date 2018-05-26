@@ -1,7 +1,9 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -23,6 +25,10 @@ public class SetupDialog extends JFrame {
 		this.setLayout(new FlowLayout());
 		this.setSize(300, 200);
 		
+		/*
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation((dim.width/2)-(this.getWidth()/2), (dim.height/2)-(this.getHeight()/2));
+		*/
 		askSentence = new JLabel("가로 세로 길이를 입력해주세요");
 		makeBtn = new JButton("만들기");
 		

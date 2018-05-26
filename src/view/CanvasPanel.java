@@ -35,7 +35,7 @@ public class CanvasPanel extends JPanel {
 
 		Graphics2D g2 = (Graphics2D) g;
 		BasicStroke thickStroke = new BasicStroke(5);
-		BasicStroke thinStroke = new BasicStroke(3);
+		g2.setStroke(thickStroke);
 
 		for (int i = 0; i < size; i++) {
 			Shape shape = MainPanel.shapeVec.get(i);
@@ -71,7 +71,7 @@ public class CanvasPanel extends JPanel {
 							g2.setStroke(thickStroke);
 						}
 						g.drawRect(x, y, width, height);
-						g2.setStroke(thinStroke);
+						g2.setStroke(thickStroke);
 
 					} else {
 						g.fillRect(x, y, width, height);
@@ -83,7 +83,7 @@ public class CanvasPanel extends JPanel {
 							g2.setStroke(thickStroke);
 						}
 						g.drawRect(x, y, width, height);
-						g2.setStroke(thinStroke);
+						g2.setStroke(thickStroke);
 					} else {
 						g.fillRect(x, y, width, height);
 					}
@@ -94,7 +94,7 @@ public class CanvasPanel extends JPanel {
 							g2.setStroke(thickStroke);
 						}
 						g.drawRect(x, y, width, height);
-						g2.setStroke(thinStroke);
+						g2.setStroke(thickStroke);
 					} else {
 						g.fillRect(x, y, width, height);
 					}
@@ -116,7 +116,7 @@ public class CanvasPanel extends JPanel {
 					ArrayList<Window> windowList = shape.getWindows();
 					for (int j = 0; j < windowList.size(); j++) {
 						Window window = windowList.get(j);
-						g.setColor(window.getColor());
+						g.setColor(Color.yellow);
 						g.drawRect(window.getX(), window.getY(), window.getWidth(), window.getHeight());
 						g2.setStroke(thickStroke);
 					}

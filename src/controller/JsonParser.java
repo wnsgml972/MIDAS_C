@@ -52,10 +52,6 @@ public class JsonParser {
 		openWriter();
 		
 		StringBuffer sb = new StringBuffer("");
-		shapeVec.get(0).addDoor(new Door(3, 3, 2, 2));
-		shapeVec.get(0).addDoor(new Door(3, 3, 2, 2));
-		shapeVec.get(0).addWindow(new Window(3, 3, 2, 2));
-		shapeVec.get(0).addWindow(new Window(3, 3, 2, 2));
 
 		sb.append("{\"");
 		sb.append("Shape"); // className
@@ -421,9 +417,6 @@ public class JsonParser {
 		JSONObject jsonObject = null;
 		JSONArray groupInfoArray = null;
 		
-		ArrayList<Door> doorList = new ArrayList<Door>();
-		ArrayList<Window> windowList = new ArrayList<Window>();
-		
 		try {
 			jsonObject = (JSONObject) jsonParser.parse(tmp);
 			groupInfoArray = (JSONArray) jsonObject.get("Shape");
@@ -431,14 +424,23 @@ public class JsonParser {
 			shapeVec = new Vector<Shape>();
 			for (int i = 0; i < groupInfoArray.size(); i++) {
 				JSONObject groupObject = (JSONObject) groupInfoArray.get(i);
-				
+				ArrayList<Door> doorList = new ArrayList<Door>();
+				ArrayList<Window> windowList = new ArrayList<Window>();
 				//door
 				for(int j=0; j<Integer.parseInt(groupObject.get("doorSize").toString()); j++){
 
+					//dir, x1, y1, x2, y2  수정
+					
 					Door door = new Door(Integer.parseInt(groupObject.get("d" +j+"x").toString()),
 							Integer.parseInt(groupObject.get("d" +j+"y").toString()), 
 							Integer.parseInt(groupObject.get("d" +j+"width").toString()), 
-							Integer.parseInt(groupObject.get("d" +j+"height").toString()));
+							Integer.parseInt(groupObject.get("d" +j+"height").toString()),
+							Integer.parseInt(groupObject.get("d" +j+"dir").toString()),
+							Integer.parseInt(groupObject.get("d" +j+"x1").toString()),
+							Integer.parseInt(groupObject.get("d" +j+"y1").toString()),
+							Integer.parseInt(groupObject.get("d" +j+"x2").toString()),
+							Integer.parseInt(groupObject.get("d" +j+"y2").toString())
+							);
 					doorList.add(door);
 				}
 				//window
@@ -447,7 +449,13 @@ public class JsonParser {
 					Window window = new Window(Integer.parseInt(groupObject.get("w" +j+"x").toString()),
 							Integer.parseInt(groupObject.get("w" +j+"y").toString()), 
 							Integer.parseInt(groupObject.get("w" +j+"width").toString()), 
-							Integer.parseInt(groupObject.get("w" +j+"height").toString()));
+							Integer.parseInt(groupObject.get("w" +j+"height").toString()),
+							Integer.parseInt(groupObject.get("w" +j+"dir").toString()),
+							Integer.parseInt(groupObject.get("w" +j+"x1").toString()),
+							Integer.parseInt(groupObject.get("w" +j+"y1").toString()),
+							Integer.parseInt(groupObject.get("w" +j+"x2").toString()),
+							Integer.parseInt(groupObject.get("w" +j+"y2").toString())
+							);
 					windowList.add(window);
 				}
 				
@@ -456,7 +464,7 @@ public class JsonParser {
 						Integer.parseInt(groupObject.get("y").toString()),
 						Integer.parseInt(groupObject.get("width").toString()),
 						Integer.parseInt(groupObject.get("height").toString()),
-						Integer.parseInt(groupObject.get("red").toString()),
+						Integer.parseInt("0"),
 						Integer.parseInt(groupObject.get("green").toString()),
 						Integer.parseInt(groupObject.get("blue").toString()),
 						Boolean.parseBoolean(groupObject.get("empty").toString()),
@@ -467,6 +475,7 @@ public class JsonParser {
 						doorList, windowList
 						);
 				shapeVec.add(shape);
+				
 			}
 
 		} catch (ParseException e) {

@@ -8,6 +8,6 @@ public class BoardPanel extends JPanel{
 
 	public BoardPanel(){
 		setLayout(null);
-		setBackground(new Color(0xA8E6CF));
+		setBackground(new Color(234,219,255));
 	}
 }

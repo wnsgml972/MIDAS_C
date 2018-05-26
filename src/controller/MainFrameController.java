@@ -162,11 +162,18 @@ public class MainFrameController {
 			}).start();
 		} else {
 			JOptionPane.showMessageDialog(null, "벽이 모두 막혀있습니다. 올바른 인테리어를 만들어주세요.");
+			return;
 		}
 	}
 
 	public void capture() {
-		try {
+		try {			
+			for(int i=0; i<MainPanel.shapeVec.size(); i++) {
+				if(MainPanel.shapeVec.get(i).getDoors().size() == 0 ) {
+					JOptionPane.showMessageDialog(null, "문이 없는 공간은 존재할 수 없습니다. 다시 확인해 주세요");
+					return;
+				}
+			}
 			Robot robot = new Robot();
 			// 내 모니터 화면의 크기를 가져오는 방법
 			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();

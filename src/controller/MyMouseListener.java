@@ -88,6 +88,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 					if (xTmp1 + drawRange <= x1 && x1 <= xTmp2 - drawRange && yTmp1 - clickRange <= y1
 							&& y1 <= yTmp1 + clickRange) {
 						// *****
+						shape.setColor(Color.BLACK);
+						shape.setCloseSpace(false);
 						Boolean check = true;
 						try {
 							ArrayList<Door> doorList = shape.getDoors();
@@ -156,6 +158,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 						// AppManager.createAppManager().getCanvasPanel().getHeight());
 						// shape.setColor(Color.BLACK);
 						// MainPanel.shapeVec.addElement(shape);
+						shape.setColor(Color.BLACK);
+						shape.setCloseSpace(false);
 						Boolean check = true;
 						try {
 							ArrayList<Door> doorList = shape.getDoors();
@@ -218,6 +222,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 						// AppManager.createAppManager().getCanvasPanel().getHeight());
 						// shape.setColor(Color.BLACK);
 						// MainPanel.shapeVec.addElement(shape);
+						shape.setColor(Color.BLACK);
+						shape.setCloseSpace(false);
 						Boolean check = true;
 						try {
 							ArrayList<Door> doorList = shape.getDoors();
@@ -280,6 +286,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 						// AppManager.createAppManager().getCanvasPanel().getHeight());
 						// shape.setColor(Color.BLACK);
 						// MainPanel.shapeVec.addElement(shape);
+						shape.setColor(Color.BLACK);
+						shape.setCloseSpace(false);
 						Boolean check = true;
 						try {
 							ArrayList<Door> doorList = shape.getDoors();
@@ -327,7 +335,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 							door.setDir(3);
 							door.setRange(xTmp1, yTmp1, xTmp2, yTmp2);
 							shape.addDoor(door);
-						} else if (clicked.equals(GlobalNum.DOOR)) {
+						} else if (clicked.equals(GlobalNum.WINDOW)) {
 							window = new Window(xTmp1 - 4, y1, 8, 0);
 							window.setDir(3);
 							window.setRange(xTmp1, yTmp1, xTmp2, yTmp2);
@@ -450,10 +458,18 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
 		if (clicked == null)
 			return;
+		if (x2 > canvasPanel.getWidth() - minusNum || x2 < minusNum)
+			return;
+		if (y2 > canvasPanel.getHeight() - minusNum || y2 < minusNum)
+			return;
 
 		if (clicked.equals(GlobalNum.WALL)) {
 			drawWall();
 		} else if (clicked.equals(GlobalNum.DOOR)) {
+			menuController.setClicked("select"); // select로 바꿔서 그 안에서 컨트롤해 안에서
+													// 선택된
+			// 애를 찾음
+			clicked = "select";
 			if (dir == 0) {
 				if (!door.xRangeCheck(x2))
 					return;
@@ -629,6 +645,10 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			}
 			drawDoor();
 		} else if (clicked.equals(GlobalNum.WINDOW)) {
+			menuController.setClicked("select"); // select로 바꿔서 그 안에서 컨트롤해 안에서
+													// 선택된
+			// 애를 찾음
+			clicked = "select";
 			if (dir == 0) {
 				if (!window.xRangeCheck(x2))
 					return;
@@ -809,9 +829,9 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		{
 			move();
 			if (shape.getType() == 1) // when selectd object is furniture
-	            locatedInside(); // check that located wall;
-	         else if(shape.getType() == 0)
-	            crossedRoos();
+				locatedInside(); // check that located wall;
+			else if (shape.getType() == 0)
+				crossedRoos();
 		}
 
 		menuController.setClicked("select"); // select로 바꿔서 그 안에서 컨트롤해 안에서 선택된
@@ -1308,21 +1328,14 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		if (startX >= minX - (AppManager.createAppManager().getCanvasPanel().getX() - 3)
 				&& endX <= maxX - (AppManager.createAppManager().getCanvasPanel().getX() + 3)) {
 			shape.setX(x2 - width);
-		}
-		// set y
-		if (shape.getType() == 0) {
-			if (startY >= minY - (AppManager.createAppManager().getCanvasPanel().getY() - 3)
-					&& endY <= maxY - (AppManager.createAppManager().getCanvasPanel().getY() + 3)) {
-				shape.setY(y2 - height);
-			}
 			try {
 				// ***
 				ArrayList<Door> doorList = shape.getDoors();
 				for (int i = 0; i < doorList.size(); i++) {
 					Door door = doorList.get(i);
-					door.move(x2, y2);
-					door.setRange(shape.getX(), shape.getY(), shape.getX() + shape.getWidth(),
-							shape.getY() + shape.getHeight());
+					door.moveX(x2);
+					door.setX1(shape.getX());
+					door.setX2(shape.getX() + shape.getWidth());
 				}
 			} catch (Exception e) {
 
@@ -1333,13 +1346,46 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 				ArrayList<Window> windowList = shape.getWindows();
 				for (int i = 0; i < windowList.size(); i++) {
 					Window window = windowList.get(i);
-					window.move(x2, y2);
-					window.setRange(shape.getX(), shape.getY(), shape.getX() + shape.getWidth(),
-							shape.getY() + shape.getHeight());
+					window.moveX(x2);
+					window.setX1(shape.getX());
+					window.setX2(shape.getX() + shape.getWidth());
 				}
 			} catch (Exception e) {
 
 			}
+		}
+		// set y
+		if (shape.getType() == 0) {
+			if (startY >= minY - (AppManager.createAppManager().getCanvasPanel().getY() - 3)
+					&& endY <= maxY - (AppManager.createAppManager().getCanvasPanel().getY() + 3)) {
+				shape.setY(y2 - height);
+				try {
+					// ***
+					ArrayList<Door> doorList = shape.getDoors();
+					for (int i = 0; i < doorList.size(); i++) {
+						Door door = doorList.get(i);
+						door.moveY(y2);
+						door.setY1(shape.getY());
+						door.setY2(shape.getY() + shape.getHeight());
+					}
+				} catch (Exception e) {
+
+				}
+
+				try {
+					// ***
+					ArrayList<Window> windowList = shape.getWindows();
+					for (int i = 0; i < windowList.size(); i++) {
+						Window window = windowList.get(i);
+						window.moveY(y2);
+						window.setY1(shape.getY());
+						window.setY2(shape.getY() + shape.getHeight());
+					}
+				} catch (Exception e) {
+
+				}
+			}
+
 		} else if (shape.getType() == 1) {
 			if (startY >= minY - (AppManager.createAppManager().getCanvasPanel().getY() - 3)
 					&& endY <= maxY - (AppManager.createAppManager().getCanvasPanel().getY() + 23)) {
@@ -1353,6 +1399,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		int objY1 = shape.getY();
 		int objX2 = shape.getWidth() + objX1;
 		int objY2 = shape.getHeight() + objY1;
+
+		int objectMinLength = Integer.min(shape.getWidth(), shape.getHeight());
 
 		for (int i = 0; i < MainPanel.shapeVec.size(); i++) {
 			Shape tempShape = MainPanel.shapeVec.get(i);
@@ -1389,23 +1437,53 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 				}
 
 				System.out.println(cnt1 + " " + cnt2);
-				if (cnt1 >= 2 || cnt2 >= 2) {
-					errorDialog();
-					MainPanel.shapeVec.remove(shape);
-				}
+				/*
+				 * if (cnt1 >= 2 || cnt2 >= 2) { errorDialog();
+				 * MainPanel.shapeVec.remove(shape); }
+				 */
 
 			} else if (tempShape.getType() == 1) // 객체 일경우
 			{
 				if (objX2 < wallX1 || wallX2 < objX1 || objY2 < wallY1 || wallY2 < objY1) {
-
 				} else {
-					shape.setX(wallX2);
-					shape.setY(wallY1);
+					shape.setX(0);
+					shape.setY(0);
 					int j = 1;
 					System.out.println(j++ + " *** " + objX1 + " " + objX2 + " " + objY1 + " " + objY2);
 					System.out.println(wallX1 + " " + wallX2 + " " + wallY1 + " " + wallY2);
 				}
 
+			}
+
+			if (tempShape.getType() == 0 && shape.getType() == 1) {
+				if (objX2 < wallX1 || wallX2 < objX1 || objY2 < wallY1 || wallY2 < objY1) {
+				} else {
+					int j = 1;
+					System.out.println(j++ + " *** " + objX1 + " " + objX2 + " " + objY1 + " " + objY2);
+					System.out.println(wallX1 + " " + wallX2 + " " + wallY1 + " " + wallY2);
+
+					try {
+						// ***
+						int minNum = Integer.MAX_VALUE;
+						ArrayList<Door> doorList = tempShape.getDoors();
+						for (int k = 0; k < doorList.size(); k++) {
+							Door door = doorList.get(k);
+							int maxNumTemp = Integer.max(door.getWidth(), door.getHeight());
+							minNum = Integer.min(minNum, maxNumTemp);
+						}
+						if (doorList.size() == 0) {
+							JOptionPane.showMessageDialog(canvasPanel, "문이 존재하지 않습니다.", "error", JOptionPane.ERROR_MESSAGE);
+							shape.setX(0);
+							shape.setY(0);
+						} else if (objectMinLength > minNum) {
+							shape.setX(0);
+							shape.setY(0);
+							errorDialog();
+						}
+					} catch (Exception e) {
+						errorDialog();
+					}
+				}
 			}
 		}
 	}
@@ -1420,39 +1498,21 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			Shape tempShape = MainPanel.shapeVec.get(i);
 			if (tempShape.equals(shape))
 				continue;
-			if (tempShape.getType() == 0) // 벽일 경우
+			int wallX1 = tempShape.getX();
+			int wallY1 = tempShape.getY();
+			int wallX2 = tempShape.getWidth() + wallX1;
+			int wallY2 = tempShape.getHeight() + wallY1;
+
+			if (tempShape.getType() == 1) // 객체 일경우
 			{
-				int wallX1 = tempShape.getX();
-				int wallY1 = tempShape.getY();
-				int wallX2 = tempShape.getWidth() + wallX1;
-				int wallY2 = tempShape.getHeight() + wallY1;
+				if (objX2 < wallX1 || wallX2 < objX1 || objY2 < wallY1 || wallY2 < objY1) {
 
-				int cnt1 = 0, cnt2 = 0;
-				if (wallY1 > objY1 && wallY1 < objY2) // up
-				{
-					shape.setY(wallY1);
-					cnt1++;
-				}
-				if (wallX2 > objX1 && wallX2 < objX2) // right
-				{
-					shape.setX(wallX2 - shape.getWidth());
-					cnt2++;
-				}
-				if (wallY2 > objY1 && wallY2 < objY2) // down
-				{
-					shape.setY(wallY2 - shape.getHeight() + 2);
-					cnt1++;
-				}
-				if (wallX1 > objX1 && wallX1 < objX2)// left
-				{
-					shape.setX(wallX1);
-					cnt2++;
-				}
-
-				System.out.println(cnt1 + " " + cnt2);
-				if (cnt1 >= 2 || cnt2 >= 2) {
-					errorDialog();
-					MainPanel.shapeVec.remove(shape);
+				} else {
+					tempShape.setX(0);
+					tempShape.setY(0);
+					int j = 1;
+					System.out.println(j++ + " *** " + objX1 + " " + objX2 + " " + objY1 + " " + objY2);
+					System.out.println(wallX1 + " " + wallX2 + " " + wallY1 + " " + wallY2);
 				}
 
 			}
