@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
+
 import main.AppManager;
 import model.Shape;
 import view.CanvasPanel;
@@ -32,12 +34,22 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 		
 	}
 	
+	private void initSelect() {
+		for(int i = 0; i < mainPanel.shapeVec.size(); i++) {
+			shape = mainPanel.shapeVec.get(i);
+			shape.setColor(new Color(0x000000));
+		}
+	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		x2 = x1 = e.getX();
 		y2 = y1 = e.getY();
 		clicked = menuController.getClicked();
+		
+		// 선택 해제
+		initSelect();
+		
 		if(clicked.equals("rectangle")|| clicked.equals("circle"))
 		{
 			shape = new Shape(clicked,x1,y1,0,0);
@@ -71,6 +83,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 						clicked = "clicked";
 						width = x1- shape.getX();
 						height = y1 - shape.getY();
+						shape.setColor(new Color(0xff0000));
 						break;
 					}
 				}
@@ -215,8 +228,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 	public void move() //수정
 	{
 		shape = mainPanel.shapeVec.get(position);		
-		shape.setX(x2-x1+width);
-		shape.setY(y2-y1+height);
+		shape.setX(x2-width);
+		shape.setY(y2-height);
 	
 	}
 	
