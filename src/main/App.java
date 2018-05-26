@@ -7,7 +7,6 @@ import controller.*;
 public class App {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		AppManager.createAppManager().setPanelManager(new PanelManager());
 		AppManager.createAppManager().setJsonParser(new JsonParser());
@@ -16,7 +15,6 @@ public class App {
 		AppManager.createAppManager().setMainPanelController(new MainPanelController());		
 		AppManager.createAppManager().setMenuPanelController(new MenuPanelController());
 		AppManager.createAppManager().setCanvasPanelController(new CanvasPanelController());
-		
 		
 	}
 

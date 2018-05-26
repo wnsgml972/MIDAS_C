@@ -27,12 +27,12 @@ public class SetupDialogController {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
 
-				if (obj == setupDialog.getMakeBtn()) {
+				if (obj == setupDialog.getMakeBtn() || obj == setupDialog.getHeightTextField()) {
 					try {
-						width = Integer.parseInt(setupDialog.getWidthField().getText());
-						column = Integer.parseInt(setupDialog.getColumnField().getText());
+						width = Integer.parseInt(setupDialog.getWidthTextField().getText());
+						column = Integer.parseInt(setupDialog.getHeightTextField().getText());
 					} catch (Exception exception) {
-						setupDialog.getAskSentence().setText("정확하세 입력해주세요!!");
+						setupDialog.getAskSentence().setText("정확하게 입력해주세요!!");						
 					}
 
 					if (width != 0 && column != 0) {
@@ -60,11 +60,10 @@ public class SetupDialogController {
 						setupDialog.dispose();
 
 					} else {
-						setupDialog.getAskSentence().setText("정확하세 입력해주세요!!");
+						setupDialog.getAskSentence().setText("정확하게 입력해주세요!!");						
 					}
 
-				}
-
+				}			
 			}
 
 		});

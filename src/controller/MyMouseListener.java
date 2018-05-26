@@ -31,17 +31,16 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 	private void initSelect() {
 		for (int i = 0; i < MainPanel.shapeVec.size(); i++) {
 			shape = MainPanel.shapeVec.get(i);
-			if(shape.getState() == true){
-				
-				if(shape.getRed() == 255 && shape.getGreen() == 13 && shape.getBlue() == 13 ){
+			if (shape.getState() == true) {
+
+				if (shape.getRed() == 255 && shape.getGreen() == 13 && shape.getBlue() == 13) {
 					shape.setRed(0);
 					shape.setGreen(0);
 					shape.setBlue(0);
 				}
-				
+
 				shape.setState(false);
-				
-				
+
 				shape.setColor(new Color(shape.getRed(), shape.getGreen(), shape.getBlue()));
 			}
 		}
@@ -53,81 +52,81 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		y2 = y1 = e.getY();
 		clicked = menuController.getClicked();
 
+		if (clicked == null)
+			return;
+
 		// 선택 해제
 		initSelect();
 
-		if (clicked.equals(GlobalNum.WALL) ) { //add wall
+		if (clicked.equals(GlobalNum.WALL)) { // add wall
 			shape = new Shape(clicked, x1, y1, 0, 0);
 			MainPanel.shapeVec.addElement(shape);
-		}
-		else if (clicked.equals(GlobalNum.DOOR) || clicked.equals(GlobalNum.WINDOW)){
-			for (int i = 0; i < MainPanel.shapeVec.size(); i++) { //여기서부터
-				
+		} else if (clicked.equals(GlobalNum.DOOR) || clicked.equals(GlobalNum.WINDOW)) {
+			for (int i = 0; i < MainPanel.shapeVec.size(); i++) { // 여기서부터
+
 			}
 			shape = new Shape(clicked, x1, y1, 0, 0);
 			MainPanel.shapeVec.addElement(shape);
-		}
-		else if (clicked.equals("line")) {
+		} else if (clicked.equals("line")) {
 			shape = new Shape(clicked, x1, y1, x1, y1);
 			MainPanel.shapeVec.addElement(shape);
-		} 
-		else if (clicked.equals("select")) {  //select Shape!
+		} else if (clicked.equals("select")) { // select Shape!
 
 			for (int i = MainPanel.shapeVec.size() - 1; i >= 0; i--) {
 				shape = MainPanel.shapeVec.get(i);
 				position = i;
-				if (shape.getShape().equals("line")) { //Line clicked
+				if (shape.getShape().equals("line")) { // Line clicked
 					if (x1 >= shape.getX() && x2 <= shape.getWidth() && y1 >= shape.getY() && y1 <= shape.getHeight()) {
 						clicked = "clicked";
 						width = x1 - shape.getX();
 						height = y1 - shape.getY();
 						break;
 					}
-				} else { //Wall clicked					
+				} else { // Wall clicked
 					if (x1 >= shape.getX() && x2 <= shape.getWidth() + shape.getX() && y1 >= shape.getY()
 							&& y1 <= shape.getHeight() + shape.getY()) {
 						clicked = "clicked";
 						width = x1 - shape.getX();
 						height = y1 - shape.getY();
-						if(!(shape.getRed() == 0 && shape.getGreen() == 0  && shape.getBlue() == 0 )){
+						if (!(shape.getRed() == 0 && shape.getGreen() == 0 && shape.getBlue() == 0)) {
 							shape.setState(true);
 							break;
 						}
 						shape.setRed(255);
 						shape.setGreen(13);
 						shape.setBlue(13);
-						shape.setColor(new Color(255, 13,13));
+						shape.setColor(new Color(255, 13, 13));
 						shape.setState(true);
 						break;
 					}
 				}
 			}
 		}
-}
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		x2 = e.getX();
 		y2 = e.getY();
 
+		if (clicked == null)
+			return;
+
 		if (clicked.equals(GlobalNum.WALL)) {
 			drawWall();
-		} 
-		else if (clicked.equals(GlobalNum.DOOR)) {
+		} else if (clicked.equals(GlobalNum.DOOR)) {
 			drawDoor();
-		} 
-		else if (clicked.equals(GlobalNum.WINDOW)) {
+		} else if (clicked.equals(GlobalNum.WINDOW)) {
 			drawWindow();
-		} 
-		else if (clicked.equals("line")) {
+		} else if (clicked.equals("line")) {
 			drawLine();
-		} 
-		else if (clicked.equals("clicked")) // selected object
+		} else if (clicked.equals("clicked")) // selected object
 		{
 			move();
 		}
 
-		menuController.setClicked("select"); //select로 바꿔서 그 안에서 컨트롤해 안에서 선택된 애를 찾음
+		menuController.setClicked("select"); // select로 바꿔서 그 안에서 컨트롤해 안에서 선택된
+												// 애를 찾음
 		clicked = "select";
 		canvasPanel.repaint();
 
@@ -138,19 +137,18 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		x2 = e.getX();
 		y2 = e.getY();
 
+		if (clicked == null)
+			return;
+
 		if (clicked.equals(GlobalNum.WALL)) {
 			drawWall();
-		}
-		else if (clicked.equals(GlobalNum.DOOR)) {
+		} else if (clicked.equals(GlobalNum.DOOR)) {
 			drawDoor();
-		} 
-		else if (clicked.equals(GlobalNum.WINDOW)) {
+		} else if (clicked.equals(GlobalNum.WINDOW)) {
 			drawWindow();
-		} 
-		else if (clicked.equals("line")) {
+		} else if (clicked.equals("line")) {
 			drawLine();
-		} 
-		else if (clicked.equals("clicked")) // selected object
+		} else if (clicked.equals("clicked")) // selected object
 		{
 			move();
 		}
@@ -180,6 +178,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		shape.setWidth(width);
 		shape.setHeight(height);
 	}
+
 	public void drawDoor() {
 		if (x2 > x1) {
 			width = x2 - x1;
@@ -202,6 +201,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		shape.setWidth(width);
 		shape.setHeight(height);
 	}
+
 	public void drawWindow() {
 		if (x2 > x1) {
 			width = x2 - x1;
@@ -224,7 +224,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		shape.setWidth(width);
 		shape.setHeight(height);
 	}
-	
+
 	public void drawLine() {
 		shape = MainPanel.shapeVec.lastElement();
 		shape.setX(x1);
@@ -233,12 +233,42 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		shape.setHeight(y2);
 	}
 
-	public void move() 
-	{
+	public void move() {
 		shape = MainPanel.shapeVec.get(position);
-		shape.setX(x2 - width);
-		shape.setY(y2 - height);
+		int minX, minY, maxX, maxY; // section of canvas
+		int startX, startY, endX, endY;
 
+		minX = canvasPanel.getLocation().x;
+		minY = canvasPanel.getLocation().y;
+		maxX = (int) canvasPanel.getSize().getWidth() + minX;
+		maxY = (int) canvasPanel.getSize().getHeight() + minY;
+
+		startX = x2 - width;
+		startY = y2 - height;
+		endX = startX + shape.getWidth();
+		endY = startY + shape.getHeight();
+
+		// set X
+		if (shape.getType() == 0) {
+			if (startX >= minX - 27 && endX <= maxX - 33) {
+				shape.setX(x2 - width);
+			}
+		} else if (shape.getType() == 1) {
+			if (startX >= minX - 27 && endX <= maxX - 43) {
+				shape.setX(x2 - width);
+			}
+		}
+
+		// set y
+		if (shape.getType() == 0) {
+			if (startY >= minY - 27 && endY <= maxY - 33) {
+				shape.setY(y2 - height);
+			}
+		} else if (shape.getType() == 1) {
+			if (startY >= minY - 27 && endY <= maxY - 53) {
+				shape.setY(y2 - height);
+			}
+		}
 	}
 
 	// ---------------------------------------------------------------------

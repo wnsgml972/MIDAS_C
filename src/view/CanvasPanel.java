@@ -17,7 +17,6 @@ import values.GlobalNum;
 public class CanvasPanel extends JPanel {
 
 	private MenuPanelController menuController;
-	private int x, y, width, height;
 
 	public CanvasPanel() {
 		this.setLayout(null);
