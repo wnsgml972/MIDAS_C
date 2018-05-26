@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import main.AppManager;
+import values.GlobalNum;
 import view.CanvasPanel;
 import view.MainPanel;
 import view.MenuPanel;
@@ -32,38 +33,27 @@ public class MenuPanelController {
 				Object obj = e.getSource();
 				
 				//clicked selelct
-				if(obj == menuPanel.getRectBtn()) // 1
+				if(obj == menuPanel.getWallBtn()) // 1
 				{
-					menuPanel.setBackground(Color.WHITE);
-					clicked = "rectangle";
+					clicked = GlobalNum.WALL;
 				}
-				else if(obj == menuPanel.getLineBtn()) //2
+				else if(obj == menuPanel.getDoorBtn()) //2
 				{
-					menuPanel.setBackground(Color.red);
-					clicked = "line";
+					clicked = GlobalNum.DOOR;
 				}
-				else if(obj == menuPanel.getCircleBtn()) //3
+				else if(obj == menuPanel.getWindowBtn()) //3
 				{
-					menuPanel.setBackground(Color.pink);
-					clicked = "circle";
-				}
-				else if(obj == menuPanel.getEraseBtn()) // 4
-				{
-					menuPanel.setBackground(Color.BLACK);
-					clicked = "erase";
+					clicked = GlobalNum.WINDOW;
 				}
 				else if(obj == menuPanel.getColorBtn()) //5
 				{
-					menuPanel.setBackground(Color.BLUE);
-					clicked = "color";
+					clicked = GlobalNum.COLOR;
 				}
 				else if(obj == menuPanel.getClearBtn())
 				{
-					menuPanel.setBackground(Color.YELLOW);
 					mainPanel.shapeVec.removeAllElements();
 					AppManager.createAppManager().getCanvasPanel().repaint();
-					clicked = "clear";
-					
+					clicked = GlobalNum.CLEAR;					
 				}
 				
 			}

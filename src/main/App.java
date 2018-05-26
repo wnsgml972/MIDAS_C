@@ -14,7 +14,6 @@ public class App {
 		// TODO Auto-generated method stub
 		
 		AppManager.createAppManager().setPanelManager(new PanelManager());
-		//AppManager.createAppManager().setMainFrame(new MainFrame());
 		AppManager.createAppManager().setJsonParser(new JsonParser());
 		AppManager.createAppManager().setMainFrameController(new MainFrameController());
 		AppManager.createAppManager().setMainPanelController(new MainPanelController());

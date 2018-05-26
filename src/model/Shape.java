@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Shape {
 
 	private String shape;
-	private int x, y,z;
+	private int x, y;
 	private int width, height;
 	private int red;
 	private int green;
@@ -13,7 +13,7 @@ public class Shape {
 	private Color color;
 	private boolean empty;
 	
-	public Shape(){	}
+	public Shape() {	}
 	
 	public Shape(String shape, int x, int y, int width, int height){
 		this.shape = shape;

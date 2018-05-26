@@ -10,6 +10,7 @@ import controller.MenuPanelController;
 import controller.MyMouseListener;
 import main.AppManager;
 import model.Shape;
+import values.GlobalNum;
 
 public class CanvasPanel extends JPanel{
 
@@ -52,18 +53,18 @@ public class CanvasPanel extends JPanel{
 						
 			switch (shape.getShape()) 
 			{
-				case "rectangle":
+				case GlobalNum.WALL:
 					if(shape.isEmpty()){
 						g.drawRect(x, y, width, height);
 					}else{
 						g.fillRect(x, y, width, height);
 					}
 					break;
-				case "line":
+				case GlobalNum.DOOR:
 					g.drawLine(shape.getX(), shape.getY(), shape.getWidth(),shape.getHeight());
 	
 					break;
-				case "circle":
+				case GlobalNum.WINDOW:
 					if(shape.isEmpty()){
 						g.drawArc(x, y, width, height, 0, 360);
 					}else{
