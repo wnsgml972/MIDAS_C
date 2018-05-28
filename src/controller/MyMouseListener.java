@@ -26,6 +26,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 	private Shape shape;
 	private String clicked;
 	private int position;
+	
+	public static int color_position;
 
 	private int clickRange = 20;
 	private int minusNum = 5;
@@ -1211,6 +1213,12 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 		} else if (clicked.equals("clicked")) // selected object
 		{
 			move();
+		}
+		for(int i=0;i<MainPanel.shapeVec.size(); i++){
+			if(MainPanel.shapeVec.get(i).equals(shape)){
+				color_position = i;
+				break;
+			}
 		}
 		canvasPanel.repaint();
 

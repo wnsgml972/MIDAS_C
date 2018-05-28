@@ -76,7 +76,7 @@ public class MainFrameController {
 		if (dialog.getFile() == null)
 			return;
 
-		jsonParser.setFileName(dialog.getFile());
+		jsonParser.setFileName(dialog.getDirectory() + dialog.getFile());
 		jsonParser.save();
 
 	}
@@ -116,7 +116,7 @@ public class MainFrameController {
 		if (dialog.getFile() == null)
 			return;
 		else {
-			jsonParser.setFileName(dialog.getFile());
+			jsonParser.setFileName(dialog.getDirectory() + dialog.getFile());
 			MainPanel.shapeVec = jsonParser.load();
 			MainPanel mainPanel = AppManager.createAppManager().getMainPanel();
 			int width = MainPanel.shapeVec.get(0).getCanvasWidth();

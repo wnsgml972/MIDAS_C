@@ -45,7 +45,8 @@ public class MenuPanelController {
 				} else if (obj == menuPanel.getColorBtn()) // 5
 				{
 					for (int i = MainPanel.shapeVec.size() - 1; i >= 0; i--) {
-						Shape shape = MainPanel.shapeVec.get(i);
+						
+						Shape shape = MainPanel.shapeVec.get(MyMouseListener.color_position);
 						if (shape.isCloseSpace()) {
 							JOptionPane.showMessageDialog(null, "벽이 모두 막혀있습니다. 색깔을 바꿀 수 없습니다.");
 							break;

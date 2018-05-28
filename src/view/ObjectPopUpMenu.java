@@ -89,9 +89,9 @@ public class ObjectPopUpMenu extends JPopupMenu implements ActionListener {
          descPanel.add(new JLabel("Name : "));
          descPanel.add(new JLabel(AppManager.createAppManager().getMainPanel().shapeVec.get(position).getName()+"\n"));
          descPanel.add(new JLabel("Width : "));
-         descPanel.add(new JLabel(AppManager.createAppManager().getMainPanel().shapeVec.get(position).getWidth()+"\n"));
+         descPanel.add(new JLabel((int)(AppManager.createAppManager().getMainPanel().shapeVec.get(position).getWidth()/AppManager.createAppManager().getMainPanel().rate)+"\n"));
          descPanel.add(new JLabel("Height : "));
-         descPanel.add(new JLabel(AppManager.createAppManager().getMainPanel().shapeVec.get(position).getHeight()+"\n"));
+         descPanel.add(new JLabel((int)(AppManager.createAppManager().getMainPanel().shapeVec.get(position).getHeight()/AppManager.createAppManager().getMainPanel().rate)+"\n"));
          frame.add(descPanel);
          frame.setVisible(true);
          AppManager.createAppManager().getCanvasPanel().repaint();
