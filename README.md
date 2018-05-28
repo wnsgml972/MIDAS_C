@@ -10,11 +10,11 @@
 
 ### View 구조
 
-![MIDAS](/readme/view.png)
+![MIDAS](./readme/view.png)
 
 ### 시스템 구조 (MVC Pattern)
 
-![MIDAS](/readme/mvc.png)
+![MIDAS](./readme/mvc.png)
 
 <br/><br/>
 ## 구현 기능
